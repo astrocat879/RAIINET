@@ -8,19 +8,21 @@
 
 class Cell : public Observer {
   std::vector<Observer*> observers;
-  int r, c;
+  int x, y;
   Link * link;
 
   // Add other private members if necessary
 
  public:
   Cell();  // Default constructor
+  ~Cell(); // Destructor
 
-  int getRow() const; // Returns the value of r.
-  int getCol() const; // Returns the value of c.
-  void setCoords(int r, int c);  // Tells me my row and column number.
+  int getX() const; // Returns the value of x.
+  int getY() const; // Returns the value of y.
+  void setCoords(int x, int y);  // Tells me my row and column number.
 
-  void attach(Observer *o);
+  bool detachLink();
+  bool attachLink(Link *l);
 
   void notify(); // needed? not sure
 };

@@ -1,52 +1,41 @@
 #include "observer.h"
-#include "cell.h"
+#include "Cell.h"
 
 using namespace std;
 
-Cell::Cell(): isOn(false), r(0), c(0) {
+Cell::Cell(): x(0), y(0) {
 
 }
 
-bool Cell::getState() const { return isOn; }
-int Cell::getRow() const { return r; }
-int Cell::getCol() const { return c; }
+int Cell::getX() const { return x; }
+int Cell::getY() const { return y; }
 
-void Cell::setOn() {
+/* void Cell::setOn() {
   isOn = true;
   notifyAllObservers();
-}
+} */
 
-void Cell::toggle() {
+/* void Cell::toggle() {
   isOn ^= 1;
   notifyAllObservers();
-}
+} */
 
-void Cell::setCoords(int r, int c) { this->r = r; this->c = c; }
+void Cell::setCoords(int x, int y) { this->x = x; this->y = y; }
 
-void Cell::attach(Observer *o) { 
+/* void Cell::attach(Observer *o) { 
   observers.emplace_back(o);
+} */
+
+bool Cell::attachLink(Link *l) {
+  link = l;
+  return true;
 }
 
-void Cell::notify(Cell &c) {
-  toggle();
+bool Cell::detachLink() {
+  link = nullptr;
+  return true;
 }
 
-SubscriptionType Cell::subType() {
-  return SubscriptionType::SwitchOnly;
-}
-
-void Cell::notifyAllObservers() {
-  for (auto &o : observers) {
-    if (o->subType() == SubscriptionType::All) {
-      o->notify(*this);
-    }
-  }
-}
-
-void Cell::notifySwitchObservers() {
-  for (auto &o : observers) {
-    if (o->subType() == SubscriptionType::SwitchOnly) {
-      o->notify(*this);
-    }
-  }
+Cell::~Cell () {
+  delete link;
 }
