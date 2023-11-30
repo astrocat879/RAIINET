@@ -2,8 +2,8 @@
 #define __BOARD_H__
 #include <iostream>
 #include <vector>
-#include "cell.h"
-#include "link.h"
+#include "Cell.h"
+#include "Link.h"
 #include "textdisplay.h"
 #include "graphicsdisplay.h"
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "grid.h"
+#include "Board.h"
 using namespace std;
 
 Grid::Grid(): gridSize{0}, won{false}, td{nullptr}, gd{nullptr} {
