@@ -2,74 +2,44 @@
 #include "Board.h"
 using namespace std;
 
-Grid::Grid(): gridSize{0}, won{false}, td{nullptr}, gd{nullptr} {
+Board::Board(): playerCnt{2}, td{nullptr}{
+  for (int i=0;i<boardSize;i++) {
+    theBoard.push_back(vector<Cell>(boardSize));
+  }
+  
 }
 
-Grid::~Grid() {
+Board::~Board() {
   delete td;
-  delete gd;
-  clearGrid();
-}
-
-void Grid::clearGrid() { 
-  for (int i=gridSize-1; i>=0; --i) {
-    for (auto it = theGrid[i].begin(); it != theGrid[i].end(); ) {
-      theGrid[i].erase(it);
-    }
-    theGrid.pop_back();
+  for (auto &p : players) {
+    delete p;
   }
 }
 
-bool Grid::isWon() const {
-  for (int i=0; i<gridSize; i++) {
-    for (int j=0; j<gridSize; j++) {
-      if (theGrid[i][j].getState() == 1) {
-        return false;
-      }
-    }
-  }
-  return true;
+// bool Board::isWon() const {
+//   for (int i=0; i<BoardSize; i++) {
+//     for (int j=0; j<BoardSize; j++) {
+//       if (theBoard[i][j].getState() == 1) {
+//         return false;
+//       }
+//     }
+//   }
+//   return true;
+// }
+
+// void Board::init() {
+  
+// }
+
+void Board::addPlayer(Player* p) {
+  players.push_back(p);
 }
 
-void Grid::init(int n, Xwindow & w) {
-  clearGrid();
-  gridSize = n;
-  td = new TextDisplay(n);
-  gd = new GraphicsDisplay(n, w);
-  for (int i=0; i<gridSize; i++) {
-    theGrid.emplace_back(vector<Cell>(n, Cell{}));
-  }
-  for (int i=0; i<gridSize; i++) {
-    for (int j=0; j<gridSize; j++) {
-      theGrid[i][j].setCoords(i, j);
-      if (i > 0) {
-        theGrid[i][j].attach(&theGrid[i - 1][j]);
-      }
-      if (j > 0) {
-        theGrid[i][j].attach(&theGrid[i][j - 1]);
-      }
-      if (i < gridSize - 1) {
-        theGrid[i][j].attach(&theGrid[i + 1][j]);
-      }
-      if (j < gridSize - 1) {
-        theGrid[i][j].attach(&theGrid[i][j + 1]);
-      }
-      theGrid[i][j].attach(td);
-      theGrid[i][j].attach(gd);
-    }
-  }
+bool Board::moveLink(Link * l, int oldX, int oldY, int newX, int newY) {
+  
 }
 
-void Grid::turnOn(int r, int c) {
-  theGrid[r][c].setOn();
-}
-
-void Grid::toggle(int r, int c) {
-  theGrid[r][c].toggle();
-  theGrid[r][c].notifySwitchObservers();
-}
-
-ostream &operator<<(ostream &out, const Grid &g) {
+ostream &operator<<(ostream &out, const Board &g) {
   out << *g.td;
   return out;
 }

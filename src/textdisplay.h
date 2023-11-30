@@ -12,7 +12,6 @@ class TextDisplay: public Observer {
   TextDisplay(int n);
 
   void notify(Cell &c) override;
-  SubscriptionType subType() override;
 
   ~TextDisplay();
 

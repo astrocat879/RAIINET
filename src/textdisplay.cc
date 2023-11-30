@@ -24,10 +24,6 @@ TextDisplay::~TextDisplay() {
 
 }
 
-SubscriptionType TextDisplay::subType() {
-  return SubscriptionType::All;
-}
-
 ostream &operator<<(ostream &out, const TextDisplay &td) {
   for (int i=0; i<td.gridSize; i++) {
     for (int j=0; j<td.gridSize; j++) {

@@ -9,6 +9,7 @@ using namespace std;
 
 class Player
 {
+    int id;
     int downloadCount, virusCount;
     vector<Ability *> abilities;
     vector<Link *> links;
