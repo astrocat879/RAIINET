@@ -6,13 +6,22 @@
 
 class Link{
     char id;
+    int r, c;
     int strength, steps;
-    bool isVirus;
+    char type; // D or V
     bool isRevealed;
-    Player * player;
+    int playerId;
+    // Player * player;
 
     public:
-        bool move(string direction);
-        bool battle(Link *l, bool initiative);  // maybe should be private? cuz move would call this
+        Link(char id, int r, int c, char type, int strength);
+        ~Link();
+        char getType();
+        char getId();
+        int getStrength();
+        void reveal();
+        bool move(char d);
+        bool battle(Link *other); 
+        friend std::ostream &operator<<(std::ostream &out, const Link &l);
 };
 #endif
