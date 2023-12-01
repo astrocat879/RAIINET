@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, const char* argv[]){
     string cmd;
     // init board
-    Board * board = new Board(...);
+    // Board * board = new Board(...);
     while (cin >> cmd) {
         if (cmd == "move") {            // move a piece given the ID of the link and the direction
             string link, dir;

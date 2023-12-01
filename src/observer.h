@@ -8,3 +8,10 @@ class Observer {
   virtual ~Observer() = default;
 };
 #endif
+
+// subject: cell
+// observer: Player
+
+// when cell changes, you want player to react in some way
+
+// so when cell changes, you call player.notify()

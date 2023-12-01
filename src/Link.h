@@ -3,24 +3,26 @@
 #include <iostream>
 #include <vector>
 #include "Player.h"
+#include "Point.h"
 
 class Link{
     char id;
-    int r, c;
-    int strength, steps;
+    Point p;
+    int strength;
     char type; // D or V
     bool isRevealed;
-    int playerId;
+    Board * Board;
+    // int playerId;
     // Player * player;
 
     public:
-        Link(char id, int r, int c, char type, int strength);
+        Link(char id, Point p, char type, int strength);
         ~Link();
         char getType();
         char getId();
         int getStrength();
         void reveal();
-        bool move(char d);
+        void move(Point dir);
         bool battle(Link *other); 
         friend std::ostream &operator<<(std::ostream &out, const Link &l);
 };

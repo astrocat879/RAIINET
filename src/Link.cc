@@ -1,8 +1,9 @@
 #include <iostream>
 #include "Link.h"
+#include "Point.h"
 using namespace std;
 
-Link::Link(char id, int r, int c, char type, int strength) : id{id}, r{r}, c{c}, type{type}, strength{strength}, steps{0}, isRevealed{false}
+Link::Link(char id, Point p, char type, int strength) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false}
 {
 }
 
@@ -25,25 +26,9 @@ int Link::getStrength()
     return strength;
 }
 
-bool Link::move(char d)
+void Link::move(Point dir)
 {
-    if (d == 'U')
-    {
-        r += steps;
-    }
-    else if (d == 'D')
-    {
-        r -= steps;
-    }
-    else if (d == 'R')
-    {
-        c += steps;
-    }
-    else if (d == 'L')
-    {
-        c -= steps;
-    }
-    return true;
+    p = p + dir;
 }
 
 bool Link::battle(Link *other)
