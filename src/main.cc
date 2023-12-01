@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -7,6 +8,25 @@ int main(int argc, const char* argv[]){
     string cmd;
     // init board
     // Board * board = new Board(...);
+    string allArgs;
+    for (int i=1;i<argc;i++){
+        string arg = argv[i];
+        allArgs += arg + " ";
+    }
+    istringstream iss{allArgs};
+    while (iss >> cmd) {
+        if (cmd == "-ability1") {
+            
+        } else if (cmd == "-ability2") {
+
+        } else if (cmd == "-link1") {
+
+        } else if (cmd == "-link2") {
+            
+        } else if (cmd == "-graphics") {
+
+        }
+    }
     while (cin >> cmd) {
         if (cmd == "move") {            // move a piece given the ID of the link and the direction
             string link, dir;
