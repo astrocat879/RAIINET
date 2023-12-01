@@ -5,7 +5,7 @@
 #include "Cell.h"
 #include "Link.h"
 #include "textdisplay.h"
-#include "graphicsdisplay.h"
+// #include "graphicsdisplay.h"
 
 class Board
 {
@@ -23,6 +23,8 @@ public:
     void addPlayer(Player * p);
     // bool isWon() const;           // Call to determine if grid is in a winning state.
     // void init(int n); // Sets up an n x n grid.  Clears old grid, if necessary.
+    void initPlayer(Player * p, string s);
+    void initPlayer(Player * p);
     bool moveLink(Link * l, int oldX, int oldY, int newX, int newY);
     friend std::ostream &operator<<(std::ostream &out, const Board &g);
 };

@@ -15,8 +15,8 @@ Player::Player(int id) : id{id}, downloadCount{0}, virusCount{0}
 {
     if (id == 1) {
         botLeft = {0, 0};
-        right = Point{0, 1};
-        up = Point{1, 0};
+        right = {0, 1};
+        up = {1, 0};
         linkIDs = "abcdefg";
     } else if (id == 2) {
         botLeft = {0, 0};

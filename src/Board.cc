@@ -35,6 +35,14 @@ void Board::addPlayer(Player* p) {
   players.push_back(p);
 }
 
+void Board::initPlayer(Player * p, string s) {
+  p->init(s);
+}
+
+void Board::initPlayer(Player * p) {
+  p->init();
+}
+
 void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) {
   /*
   checks if in bounds and if new cell doesn't contain ally link

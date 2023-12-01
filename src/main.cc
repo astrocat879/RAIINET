@@ -1,13 +1,18 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <sstream>
+#include "Board.h"
+#include "Player.h"
 
 using namespace std;
 
 int main(int argc, const char* argv[]){
     string cmd;
     // init board
-    // Board * board = new Board(...);
+    Board board{};
+    board.addPlayer(new Player{1});
+    board.addPlayer(new Player{2});
     string allArgs;
     for (int i=1;i<argc;i++){
         string arg = argv[i];
@@ -20,9 +25,13 @@ int main(int argc, const char* argv[]){
         } else if (cmd == "-ability2") {
 
         } else if (cmd == "-link1") {
-
+            string fileName;
+            iss >> fileName;
+            ifstream file{fileName};
+            string layout;
+            getline(file, layout);
         } else if (cmd == "-link2") {
-            
+
         } else if (cmd == "-graphics") {
 
         }
