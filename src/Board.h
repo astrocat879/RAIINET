@@ -25,6 +25,7 @@ public:
     // void init(int n); // Sets up an n x n grid.  Clears old grid, if necessary.
     void initPlayer(Player * p, string s);
     void initPlayer(Player * p);
+    Player * getPlayer(int id);
     bool moveLink(Link * l, int oldX, int oldY, int newX, int newY);
     friend std::ostream &operator<<(std::ostream &out, const Board &g);
 };

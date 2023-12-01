@@ -43,6 +43,10 @@ void Board::initPlayer(Player * p) {
   p->init();
 }
 
+Player * Board::getPlayer(int id) {     // erm.. could be better (TO DO)
+  return players[id];
+}
+
 void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) {
   /*
   checks if in bounds and if new cell doesn't contain ally link

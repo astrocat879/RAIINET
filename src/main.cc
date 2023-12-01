@@ -19,6 +19,7 @@ int main(int argc, const char* argv[]){
         allArgs += arg + " ";
     }
     istringstream iss{allArgs};
+    bool link1, link2, ability1, ability2;
     while (iss >> cmd) {
         if (cmd == "-ability1") {
             
@@ -30,11 +31,26 @@ int main(int argc, const char* argv[]){
             ifstream file{fileName};
             string layout;
             getline(file, layout);
+            board.initPlayer(board.getPlayer(1), layout);
+            link1 = true;
         } else if (cmd == "-link2") {
-
+            string fileName;
+            iss >> fileName;
+            ifstream file{fileName};
+            string layout;
+            getline(file, layout);
+            board.initPlayer(board.getPlayer(2), layout);
+            link2 = true;
         } else if (cmd == "-graphics") {
 
         }
+    }
+    // set up default initializations for ability and link (TO DO)
+    if (!link1) {
+        board.initPlayer(board.getPlayer(1));
+    }
+    if (!link2) {
+        board.initPlayer(board.getPlayer(2));
     }
     while (cin >> cmd) {
         if (cmd == "move") {            // move a piece given the ID of the link and the direction
