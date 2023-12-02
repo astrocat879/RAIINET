@@ -3,16 +3,10 @@
 
 using namespace std;
 
-ServerPort::ServerPort(): Cell(){
+ServerPort::ServerPort(): Cell() {}
 
-}
+ServerPort::ServerPort(int x, int y, Player* p): Cell(x, y), player{p} {}
 
-bool ServerPort::attachLink(Link *l) {
-  link = l;
-  return true;
-}
-
-bool ServerPort::detachLink() {
-  link = nullptr;
-  return true;
+void ServerPort::attachLink(Link *l) {
+  l->getPlayer()->downloadLink(l);
 }

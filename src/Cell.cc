@@ -3,37 +3,38 @@
 
 using namespace std;
 
-Cell::Cell(): x(0), y(0) {
+Cell::Cell(): p{Point {0, 0}} {}
+Cell::Cell(int x, int y): p{Point {x, y}} {}
 
+int Cell::getX() const { return p.x; }
+int Cell::getY() const { return p.y; }
+
+Link* Cell::getLink() const {
+  return link;
 }
 
-int Cell::getX() const { return x; }
-int Cell::getY() const { return y; }
+void Cell::setCoords(int y, int x) { p = {y, x}; }
 
-/* void Cell::setOn() {
-  isOn = true;
-  notifyAllObservers();
-} */
-
-/* void Cell::toggle() {
-  isOn ^= 1;
-  notifyAllObservers();
-} */
-
-void Cell::setCoords(int x, int y) { this->x = x; this->y = y; }
-
-/* void Cell::attach(Observer *o) { 
-  observers.emplace_back(o);
-} */
-
-bool Cell::attachLink(Link *l) {
-  link = l;
-  return true;
+void Cell::attachLink(Link *l) {
+  /*
+  Cell.attachLink(Link* l) for the new cell
+      This also applies the additional effects of the cell, like Firewall's reveal/download and serverport's download
+      If this cell already contains link (which can only be enemy link), battle:
+        if incoming link wins, put incoming link in the cell and current enemy link is put into incomingLink.getPlayer.downloadLink(currentLink)
+  */
+  if (link != nullptr) { //if a cell is occupied, the links must fight
+    if (l->battle(link)) { //if incoming beats current, incoming's player downloads current
+      l->getPlayer()->downloadLink(link);
+      link = l;
+    }
+    else { //if current beats incoming, current's player downloads incoming
+      link->getPlayer()->downloadLink(l);
+    } 
+  }
 }
 
-bool Cell::detachLink() {
+void Cell::detachLink() {
   link = nullptr;
-  return true;
 }
 
 Cell::~Cell () {
