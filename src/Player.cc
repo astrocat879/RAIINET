@@ -89,13 +89,34 @@ void Player::removeLink(Link * l) {
     links.erase(find(links.begin(), links.end(), l));
 }
 
+int Player::getAbilityCnt(){
+    return abilities.size();
+}
+
+int Player::getId(){
+    return id;
+}
+
 Player::~Player()
 {
 
 }
 
-ostream &operator<<(ostream &out, const Player &l)
+
+
+ostream &operator<<(ostream &out, const Player &p)
 {
+    out << "Player 1:\n";
+    out << "Downloaded:";
+    for (int i=0; i<p.links.size(); i++) {
+        if (i == 0) {
+            out << ' ';
+        } else {
+            out << ", ";
+        }
+        out << p.links[i]->getType() << p.links[i]->getStrength() << '\n';
+    }
+    out << "Abilities: " << abilities.size();
     
     return out;
 }

@@ -29,5 +29,9 @@ public:
     void moveLink(Link * l, Point dir);
     void downloadLink(Link * l);
     void removeLink(Link * l);
+    int getId();
+    int getAbilityCnt();
+
+    friend ostream &operator<<(ostream &out, const Player &p);
 };
 #endif

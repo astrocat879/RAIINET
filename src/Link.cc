@@ -51,9 +51,6 @@ void Link::reveal(){
 
 ostream &operator<<(ostream &out, const Link &l)
 {
-    if (l.isRevealed)
-        out << l.id;
-    else
-        out << "?";
+    out << l.id << ": " << l.type << l.strength;
     return out;
 }
