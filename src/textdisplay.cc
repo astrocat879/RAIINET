@@ -23,24 +23,15 @@ void TextDisplay::notify(Cell &c) {
   }
 }
 
-TextDisplay::~TextDisplay() {
-
-}
-
-
-
-void TextDisplay::print(Player * cur, Player * other, ostream &out) {
-  out << "Player 1:\n";
-  out << "Downloaded:"
-}
-
 ostream &operator<<(ostream &out, const TextDisplay &td) {
+  out << "========" << '\n';
   for (int i=0; i<td.gridSize; i++) {
     for (int j=0; j<td.gridSize; j++) {
       out << td.theDisplay[i][j];
     }
     out << '\n';
   }
+  out << "========" << '\n';
   return out;
 }
 

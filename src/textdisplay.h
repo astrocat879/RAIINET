@@ -14,7 +14,6 @@ class TextDisplay: public Observer {
   void notify(Cell &c) override;
 
   ~TextDisplay();
-  void print(Player * p1, Player * p2, ostream &out);
   friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 };
 

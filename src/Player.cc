@@ -116,7 +116,14 @@ ostream &operator<<(ostream &out, const Player &p)
         }
         out << p.links[i]->getType() << p.links[i]->getStrength() << '\n';
     }
-    out << "Abilities: " << abilities.size();
-    
+    out << "Abilities: " << p.abilities.size();
+    for (int i=0; i<4; i++) {
+        out << p.links[i] << ' ';
+    }
+    out << '\n';
+    for (int i=4; i<8; i++) {
+        out << p.links[i] << ' ';
+    }
+    out << '\n';
     return out;
 }

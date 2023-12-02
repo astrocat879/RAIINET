@@ -67,7 +67,9 @@ int main(int argc, const char* argv[]){
             cin >> n;
         }
         else if (cmd == "board") {      // display the board
-
+            cout << board.getPlayer(1);
+            cout << board;
+            cout << board.getPlayer(2);
         }
         else if (cmd == "sequence") {   // execute sequence of cmds found in a file
 
