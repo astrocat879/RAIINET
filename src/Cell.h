@@ -9,12 +9,13 @@
 class Cell : public Observer {
   std::vector<Observer*> observers;
   Point p;
-  Link * link;
+  Link* link; 
 
   // Add other private members if necessary
 
  public:
   Cell();  // Default constructor
+  Cell(int x, int y): p{Point {0, 1,}} {}
   ~Cell(); // Destructor
 
   int getX() const; // Returns the value of x.
@@ -25,6 +26,6 @@ class Cell : public Observer {
   void detachLink();
   virtual void attachLink(Link *l);
 
-  void notify(); // needed? not sure
+  // void notify(); // needed? not sure
 };
 #endif

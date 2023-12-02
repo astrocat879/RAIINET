@@ -3,12 +3,15 @@
 
 using namespace std;
 
-Cell::Cell(): x(0), y(0) {
-
-}
+Cell::Cell(): p{Point {0, 0}} {}
+Cell::Cell(int x, int y): p{Point {x, y}} {}
 
 int Cell::getX() const { return p.x; }
 int Cell::getY() const { return p.y; }
+
+Link* Cell::getLink() const {
+  return link;
+}
 
 void Cell::setCoords(int y, int x) { p = {y, x}; }
 
