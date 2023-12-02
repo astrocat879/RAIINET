@@ -13,7 +13,7 @@ class Link;
 
 class Board
 {
-    std::vector<std::vector<Cell>> theBoard;        // The actual board
+    std::vector<std::vector<Cell *>> theBoard;        // The actual board
     int playerCnt;                                  // The player count
     int curPlayer = 0;
     vector<Player *> players;                       // Array of players
