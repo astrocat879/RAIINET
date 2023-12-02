@@ -64,7 +64,11 @@ Player * Board::getPlayer(int id) {     // erm.. could be better (TO DO)
   return players[id];
 }
 
-void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) { // needs to use Points (TO DO)
+int Board::getCurPlayer(){
+  return curPlayer;
+}
+
+void Board::moveLink(Link *l, Point oldP, Point newP) { // needs to use Points (TO DO)
   /*
   checks if in bounds and if new cell doesn't contain ally link
   if it goes past other side of board, remove from cell and download (see below for how to download)
@@ -74,17 +78,8 @@ void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) { // needs
 
   NOTE: that when downloading a link, you need to remove it from the other player with Player.removeLink(Link* l)
   */
-  if (newX<0 || newX>7 || newY<0) { //if out of bounds, throw an exception
-    throw std::invalid_argument("End position (" + std::to_string(newX) + "," + std::to_string(newY) + ") is out of bounds");
-  }
-  else if (newY>7) { //if it reached the end of the board, download to its player
-    l->getPlayer()->downloadLink(l);
-    return;
-  }
-  else {
-    theBoard[oldX][oldY].detachLink();
-    theBoard[newX][newY].attachLink(l);
-  }
+    theBoard[oldP.y][oldP.x].detachLink();
+    theBoard[newP.y][newP.x].attachLink(l);
 }
 
 ostream &operator<<(ostream &out, const Board &g) {

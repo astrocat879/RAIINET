@@ -27,6 +27,10 @@ Point Link::getPoint() {
     return p;
 }
 
+Point Link::getNewPos(Point dir) {
+    return {dir.y + p.y, dir.x + p.x};
+}
+
 void Link::move(Point dir) {
     p = p + dir;
 }

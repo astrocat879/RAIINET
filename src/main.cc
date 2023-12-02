@@ -4,6 +4,7 @@
 #include <sstream>
 #include "Board.h"
 #include "Player.h"
+#include "Point.h"
 
 using namespace std;
 
@@ -11,8 +12,8 @@ int main(int argc, const char* argv[]){
     string cmd;
     // init board
     Board board{};
+    board.addPlayer(new Player{0});
     board.addPlayer(new Player{1});
-    board.addPlayer(new Player{2});
     board.init();
     // process cmd arguments
     string allArgs;
@@ -56,9 +57,14 @@ int main(int argc, const char* argv[]){
     }
     while (cin >> cmd) {
         if (cmd == "move") {            // move a piece given the ID of the link and the direction
-            string link, dir;
-            cin >> link >> dir;
-
+            char linkID;
+            string dir;
+            cin >> linkID >> dir;
+            Player* curPlayer = board.getPlayer(board.getCurPlayer());
+            Link* curLink = curPlayer->getLinkById(linkID);
+            Point oldPos = curLink->getPoint();
+            curPlayer->moveLink(curLink, Point::translate(dir));
+            board.moveLink(curLink, oldPos, curLink->getPoint());
         } 
         else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
 
@@ -73,7 +79,7 @@ int main(int argc, const char* argv[]){
             cout << board.getPlayer(2);
         }
         else if (cmd == "sequence") {   // execute sequence of cmds found in a file
-
+            
         }
         else if (cmd == "quit") {       // exit game
 

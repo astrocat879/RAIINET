@@ -13,6 +13,7 @@ class Board
 {
     std::vector<std::vector<Cell>> theBoard;        // The actual board
     int playerCnt;                                  // The player count
+    int curPlayer = 0;
     vector<Player *> players;                       // Array of players
     const int boardSize = 8;                        // Size of the board
     TextDisplay *td;                                // The text display
@@ -27,8 +28,9 @@ public:
     void init(); // Sets up board, serverports, cells, textdisplay
     void initPlayer(Player * p, string s);
     void initPlayer(Player * p);
+    int getCurPlayer();
     Player * getPlayer(int id);
-    bool moveLink(Link * l, int oldX, int oldY, int newX, int newY);
+    void moveLink(Link * l, Point oldP, Point newP);
     friend std::ostream &operator<<(std::ostream &out, const Board &g);
 };
 

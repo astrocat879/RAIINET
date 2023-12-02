@@ -31,6 +31,7 @@ public:
     void moveLink(Link * l, Point dir);
     void downloadLink(Link * l);
     void removeLink(Link * l);
+    Link * getLinkById(char id);
     int getId();
     int getAbilityCnt();
 

@@ -13,12 +13,12 @@ pair<int, int> addPoints (pair<int, int> a, pair<int, int> b){
 
 Player::Player(int id) : id{id}, downloadCount{0}, virusCount{0}
 {
-    if (id == 1) {
+    if (id == 0) {
         botLeft = {0, 0};
         right = {0, 1};
         up = {1, 0};
         linkIDs = "abcdefg";
-    } else if (id == 2) {
+    } else if (id == 1) {
         botLeft = {0, 0};
         right = {0, -1};
         up = {-1, 0};
@@ -73,8 +73,19 @@ vector<Link*>::iterator Player::getLinkEndIterator() {
     return links.end();
 }
 
+
+
 void Player::moveLink(Link * l, Point dir) {
+    Point newPos = l->getNewPos(dir);
+    if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
+        throw std::invalid_argument("End position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
+    }
+    else if (newPos.inDownloadZone(up, right, botLeft)) { //if it reached the end of the board, download to its player
+        l->getPlayer()->downloadLink(l);
+        return;
+    }
     l->move(dir);
+    // board.moveLink
     // Board.notify(l); <- notify the board that the link moved to update it?? (TO DO)
 }
 
@@ -95,6 +106,14 @@ void Player::downloadLink(Link * l) {
 
 void Player::removeLink(Link * l) {
     links.erase(find(links.begin(), links.end(), l));
+}
+
+Link * Player::getLinkById(char id) {
+    for (Link * l : links) {
+        if (id == l->getId()) {
+            return l;
+        }
+    }
 }
 
 int Player::getAbilityCnt(){
