@@ -1,5 +1,6 @@
 #ifndef __POINT_H__
 #define __POINT_H__
+#include <string>
 
 struct Point{
     int y, x;
