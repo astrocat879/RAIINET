@@ -31,6 +31,7 @@ public:
     void initPlayer(Player * p, string s);
     void initPlayer(Player * p);
     int getCurPlayer();
+    void switchTurns();
     Player * getPlayer(int id);
     void moveLink(Link * l, Point oldP, Point newP);
     friend std::ostream &operator<<(std::ostream &out, const Board &g);

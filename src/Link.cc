@@ -27,8 +27,9 @@ Point Link::getPoint() {
     return p;
 }
 
-Point Link::getNewPos(Point dir) {
-    return {dir.y + p.y, dir.x + p.x};
+Point Link::getNewPos(Point dir, Point up, Point right) {
+    return {dir.y * up.y + p.y, dir.x * right.x + p.x};
+    // TO DO: doesn't work for players 3 and 4
 }
 
 void Link::move(Point dir) {

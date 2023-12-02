@@ -80,7 +80,7 @@ vector<Link*>::iterator Player::getLinkEndIterator() {
 
 
 void Player::moveLink(Link * l, Point dir) {
-    Point newPos = l->getNewPos(dir);
+    Point newPos = l->getNewPos(dir, up, right);
     if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
         throw std::invalid_argument("End position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
     }

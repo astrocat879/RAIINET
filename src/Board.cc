@@ -85,8 +85,12 @@ Player * Board::getPlayer(int id) {     // erm.. could be better (TO DO)
   return players[id];
 }
 
-int Board::getCurPlayer(){
+int Board::getCurPlayer() {
   return curPlayer;
+}
+
+void Board::switchTurns() {
+  curPlayer = (curPlayer+1)%playerCnt;
 }
 
 void Board::moveLink(Link *l, Point oldP, Point newP) { // needs to use Points (TO DO)

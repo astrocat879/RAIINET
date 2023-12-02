@@ -72,6 +72,7 @@ int main(int argc, const char* argv[]){
             Point oldPos = curLink->getPoint();
             curPlayer->moveLink(curLink, Point::translate(dir));
             board.moveLink(curLink, oldPos, curLink->getPoint());
+            board.switchTurns();
         } 
         else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
 
@@ -79,6 +80,7 @@ int main(int argc, const char* argv[]){
         else if (cmd == "ability") {    // use ability with ID n
             int n;
             cin >> n;
+            // TO DO: lock players out of using this after using this once
         }
         else if (cmd == "board") {      // display the board
             cout << *(board.getPlayer(0));

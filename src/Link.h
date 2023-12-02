@@ -24,7 +24,7 @@ class Link{
         int getStrength();
         Player* getPlayer();
         Point getPoint();
-        Point getNewPos(Point dir);
+        Point getNewPos(Point dir, Point up, Point right);
         void reveal();
         void move(Point dir);
         bool battle(Link *other); 
