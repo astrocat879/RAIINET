@@ -70,6 +70,25 @@ void Player::moveLink(Link * l, Point dir) {
     // Board.notify(l); <- notify the board that the link moved to update it?? (TO DO)
 }
 
+// called by anything that forces player to download
+//     for example:
+//         - player moves to end of board
+//             - board calls download link on that Link
+//         - board handles battle between link
+void Player::downloadLink(Link * l) {
+    if (l->getType() == 'V') {
+        virusCount ++;
+    } else if (l->getType() == 'D') {
+        downloadCount ++;
+    }
+    downloaded.push_back(l);
+    l->getPlayer()->removeLink(l);
+}
+
+void Player::removeLink(Link * l) {
+    links.erase(find(links.begin(), links.end(), l));
+}
+
 Player::~Player()
 {
 

@@ -27,7 +27,7 @@ public:
     void init(string layout);       // initializes the player's setup, given a layout
     void init();                    // initializes a random layout
     void moveLink(Link * l, Point dir);
-    bool downloadLink(Link * l);
-    bool removeLink(Link * l);
+    void downloadLink(Link * l);
+    void removeLink(Link * l);
 };
 #endif
