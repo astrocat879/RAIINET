@@ -35,9 +35,13 @@ void Board::init() {
 
   // add server ports
   theBoard[0][3] = ServerPort(0, 3, players[0]);
+  theBoard[0][3].addObserver(td);
   theBoard[0][4] = ServerPort(0, 4, players[0]);
+  theBoard[0][4].addObserver(td);
   theBoard[7][3] = ServerPort(7, 3, players[1]);
+  theBoard[7][3].addObserver(td);
   theBoard[7][4] = ServerPort(7, 4, players[1]);
+  theBoard[7][4].addObserver(td);
 
   // put links on the board
   for (Player* p : players) {
