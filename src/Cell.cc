@@ -43,8 +43,6 @@ void Cell::attachLink(Link *l) {
 
 void Cell::addObserver(Observer * o) {
   observers.push_back(o);
-  cerr << "DEBUG: cell type: " << getType() << endl;
-  notifyObservers();
 }
 
 void Cell::notifyObservers(){

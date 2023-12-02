@@ -27,3 +27,9 @@ void Firewall::attachLink(Link *l) {
 
     Cell::attachLink(l);
 }
+
+void Firewall::notifyObservers() {
+  for (Observer * o: observers) {
+    o->notify(*this);
+  }
+}

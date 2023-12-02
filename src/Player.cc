@@ -137,23 +137,25 @@ Player::~Player()
 
 ostream &operator<<(ostream &out, const Player &p)
 {
+    // TO DO: make player have an observer so text display can do this
     out << "Player 1:\n";
     out << "Downloaded: ";
-    for (int i=0; i<p.links.size(); i++) {
+    for (int i=0; i<p.downloaded.size(); i++) {
         if (i == 0) {
             out << ' ';
         } else {
             out << ", ";
         }
-        out << p.links[i]->getType() << p.links[i]->getStrength() << '\n';
+        out << p.downloaded[i]->getType() << p.downloaded[i]->getStrength();
     }
-    out << "Abilities: " << p.abilities.size();
+    out << "\n";
+    out << "Abilities: " << p.abilities.size() << "\n";
     for (int i=0; i<4; i++) {
-        out << p.links[i] << ' ';
+        out << *(p.links[i]) << ' ';
     }
     out << '\n';
     for (int i=4; i<8; i++) {
-        out << p.links[i] << ' ';
+        out << *(p.links[i]) << ' ';
     }
     out << '\n';
     return out;

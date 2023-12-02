@@ -15,3 +15,9 @@ char ServerPort::getType() const {
 void ServerPort::attachLink(Link *l) {
   l->getPlayer()->downloadLink(l);
 }
+
+void ServerPort::notifyObservers(){
+  for (Observer * o: observers) {
+    o->notify(*this);
+  }
+}

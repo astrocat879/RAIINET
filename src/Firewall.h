@@ -10,8 +10,9 @@ class Firewall: public Cell {
   Player* player;
   public:
     Firewall();  // Default constructor
-    char getType() const; // Returns . for normal cell, S for server port, and M or W for firewall
+    char getType() const override; // Returns . for normal cell, S for server port, and M or W for firewall
     Firewall(int x, int y, Player* p);
     void attachLink(Link *l);
+    void notifyObservers() override;
 };
 #endif
