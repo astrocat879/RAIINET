@@ -5,9 +5,11 @@
 #include "Cell.h"
 #include "ServerPort.h"
 #include "Firewall.h"
-#include "Link.h"
 #include "textdisplay.h"
 // #include "graphicsdisplay.h"
+#include "Player.h"
+
+class Link;
 
 class Board
 {

@@ -1,10 +1,11 @@
 #include "observer.h"
 #include "Cell.h"
+#include "Player.h"
 
 using namespace std;
 
 Cell::Cell(): p{Point {0, 0}}, link{nullptr} {}
-Cell::Cell(int x, int y): p{Point {x, y}}, link{nullptr} {}
+Cell::Cell(int x, int y): p{Point {y, x}}, link{nullptr} {}
 
 int Cell::getX() const { return p.x; }
 int Cell::getY() const { return p.y; }

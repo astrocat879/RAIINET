@@ -3,8 +3,6 @@
 #include <string>
 #include <algorithm>
 #include "Player.h"
-#include "Link.h"
-#include "Point.h"
 using namespace std;
 
 pair<int, int> addPoints (pair<int, int> a, pair<int, int> b){

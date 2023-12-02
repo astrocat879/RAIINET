@@ -2,8 +2,9 @@
 #define __LINK_H__
 #include <iostream>
 #include <vector>
-#include "Player.h"
 #include "Point.h"
+
+class Player;
 
 class Link{
     char id;

@@ -2,9 +2,10 @@
 #define __ABILITY_H__
 #include <iostream>
 #include <vector>
-#include "Player.h"
 
 using namespace std;
+
+class Player;
 
 class Ability
 {

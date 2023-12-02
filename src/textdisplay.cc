@@ -12,6 +12,9 @@ TextDisplay::TextDisplay(int n): gridSize{n} {
   }
 }
 
+TextDisplay::~TextDisplay(){
+}
+
 void TextDisplay::notify(Cell &c) {
   int x = c.getX();
   int y = c.getY();

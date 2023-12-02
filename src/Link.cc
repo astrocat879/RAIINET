@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Link.h"
-#include "Point.h"
+#include "Player.h"
 using namespace std;
 
 Link::Link(char id, Point p, char type, int strength) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false} {}

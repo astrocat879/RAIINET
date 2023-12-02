@@ -1,5 +1,6 @@
 #include "observer.h"
 #include "Firewall.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void Firewall::attachLink(Link *l) {
             l->reveal();
         }
         else {
-            l->getPlayer()->downloadLink();
+            l->getPlayer()->downloadLink(l);
             return;
         }
     }

@@ -1,5 +1,6 @@
 #include "observer.h"
 #include "ServerPort.h"
+#include "Player.h"
 
 using namespace std;
 

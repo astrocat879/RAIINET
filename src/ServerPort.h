@@ -3,8 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "textdisplay.h"
-#include "observer.h"
 #include "Link.h"
+#include "Cell.h"
 
 class ServerPort : public Cell {
   Player* player;

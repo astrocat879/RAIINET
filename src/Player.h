@@ -6,9 +6,10 @@
 #include "Point.h"
 #include "Ability.h"
 #include "Link.h"
-#include "Board.h"
 
 using namespace std;
+
+class Link;
 
 class Player
 {
@@ -24,6 +25,7 @@ class Player
 
 public:
     Player(int id);
+    ~Player();
     void init(string layout);                           // initializes the player's setup, given a layout
     void init();                                        // initializes a random layout
     vector<Link*>::iterator getLinkBeginIterator();     // returns the begin() iterator for the links vector

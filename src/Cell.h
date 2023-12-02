@@ -15,7 +15,7 @@ class Cell{
 
  public:
   Cell();  // Default constructor
-  Cell(int x, int y): p{Point {0, 1}} {}
+  Cell(int x, int y);
   ~Cell(); // Destructor
 
   int getX() const; // Returns the value of x.
