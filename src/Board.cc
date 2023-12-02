@@ -54,10 +54,6 @@ void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) {
   Board.moveLink() calls:
     Cell.detachLink() for the old cell
     Cell.attachLink(Link* l) for the new cell
-      This also applies the additional effects of the cell, like Firewall's reveal/download and serverport's download
-      If this cell already contains link (which can only be enemy link), battle:
-        if incoming link wins, put incoming link in the cell and current enemy link is put into incomingLink.getPlayer.downloadLink(currentLink)
-        if current enemy link wins, just download incoming link: currentLink.getPlayer.downloadLink(incomingLink) and don't need to update the link in the cell bc nothing changed
 
   NOTE: that when downloading a link, you need to remove it from the other player with Player.removeLink(Link* l)
   */
