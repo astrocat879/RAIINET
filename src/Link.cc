@@ -3,26 +3,19 @@
 #include "Point.h"
 using namespace std;
 
-Link::Link(char id, Point p, char type, int strength) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false}
-{
-}
+Link::Link(char id, Point p, char type, int strength) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false} {}
 
-Link::~Link()
-{
-}
+Link::~Link() {}
 
-char Link::getType()
-{
+char Link::getType() {
     return type;
 }
 
-char Link::getId()
-{
+char Link::getId() {
     return id;
 }
 
-int Link::getStrength()
-{
+int Link::getStrength() {
     return strength;
 }
 
@@ -30,14 +23,15 @@ Player* Link::getPlayer() {
     return player;
 }
 
+Point Link::getPoint() {
+    return p;
+}
 
-void Link::move(Point dir)
-{
+void Link::move(Point dir) {
     p = p + dir;
 }
 
-bool Link::battle(Link *other)
-{ // true if this link wins
+bool Link::battle(Link *other) { // true if this link wins
     if (other->getStrength() > strength)
     {
         return false;
@@ -45,12 +39,11 @@ bool Link::battle(Link *other)
     return true; // in case of tie, you still win
 }
 
-void Link::reveal(){
+void Link::reveal() {
     isRevealed = true;
 }
 
-ostream &operator<<(ostream &out, const Link &l)
-{
+ostream &operator<<(ostream &out, const Link &l) {
     out << l.id << ": " << l.type << l.strength;
     return out;
 }

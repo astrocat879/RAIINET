@@ -2,9 +2,7 @@
 #include "Board.h"
 using namespace std;
 
-Board::Board(): playerCnt{2}, td{nullptr}{
-
-}
+Board::Board(): playerCnt{2}, td{nullptr} {}
 
 Board::~Board() {
   delete td;
@@ -25,13 +23,29 @@ Board::~Board() {
 // }
 
 void Board::init() {
-  for (int i=0;i<boardSize;i++) {
-    if (i == 7) {
-      
-    }
+  td = new TextDisplay(boardSize);
+  // adding cells
+  for (int i=0; i<boardSize; i++) {
     theBoard.push_back(vector<Cell>(boardSize));
+    for (int j=0; j<boardSize; j++) {
+      theBoard[i][j] = Cell(i, j);
+      theBoard[i][j].addObserver(td);
+    }
   }
-  
+
+  // add server ports
+  theBoard[0][3] = ServerPort(0, 3, players[0]);
+  theBoard[0][4] = ServerPort(0, 4, players[0]);
+  theBoard[7][3] = ServerPort(7, 3, players[1]);
+  theBoard[7][4] = ServerPort(7, 4, players[1]);
+
+  // put links on the board
+  for (Player* p : players) {
+    for (auto l = p->getLinkBeginIterator(); l != p->getLinkEndIterator(); ++l) {
+      Point location = (*l)->getPoint();
+      theBoard[location.y][location.x].attachLink((*l));
+    }
+  }
 }
 
 void Board::addPlayer(Player* p) {
@@ -50,7 +64,7 @@ Player * Board::getPlayer(int id) {     // erm.. could be better (TO DO)
   return players[id];
 }
 
-void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) {
+void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) { // needs to use Points (TO DO)
   /*
   checks if in bounds and if new cell doesn't contain ally link
   if it goes past other side of board, remove from cell and download (see below for how to download)
@@ -64,11 +78,11 @@ void Board::moveLink(Link *l, int oldX, int oldY, int newX, int newY) {
     throw std::invalid_argument("End position (" + std::to_string(newX) + "," + std::to_string(newY) + ") is out of bounds");
   }
   else if (newY>7) { //if it reached the end of the board, download to its player
-    l->getPlayer->downloadLink(l);
-    return true;
+    l->getPlayer()->downloadLink(l);
+    return;
   }
   else {
-    theBoard[oldX][oldY].detachLink(l);
+    theBoard[oldX][oldY].detachLink();
     theBoard[newX][newY].attachLink(l);
   }
 }

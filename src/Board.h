@@ -3,18 +3,20 @@
 #include <iostream>
 #include <vector>
 #include "Cell.h"
+#include "ServerPort.h"
+#include "Firewall.h"
 #include "Link.h"
 #include "textdisplay.h"
 // #include "graphicsdisplay.h"
 
 class Board
 {
-    std::vector<std::vector<Cell>> theBoard; // The actual board
-    int playerCnt;
-    vector<Player *> players;
-    const int boardSize = 8;                           // Size of the board
-    TextDisplay *td;                        // The text display
-    // GraphicsDisplay *gd;                    // The graphics display
+    std::vector<std::vector<Cell>> theBoard;        // The actual board
+    int playerCnt;                                  // The player count
+    vector<Player *> players;                       // Array of players
+    const int boardSize = 8;                        // Size of the board
+    TextDisplay *td;                                // The text display
+    // GraphicsDisplay *gd;                            // The graphics display
 
 public:
     Board();

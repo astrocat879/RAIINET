@@ -22,6 +22,7 @@ class Link{
         char getId();
         int getStrength();
         Player* getPlayer();
+        Point getPoint();
         
         void reveal();
         void move(Point dir);

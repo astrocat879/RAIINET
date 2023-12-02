@@ -65,6 +65,14 @@ void Player::init(){
     }
 }
 
+vector<Link*>::iterator Player::getLinkBeginIterator() {
+    return links.begin();
+}
+
+vector<Link*>::iterator Player::getLinkEndIterator() {
+    return links.end();
+}
+
 void Player::moveLink(Link * l, Point dir) {
     l->move(dir);
     // Board.notify(l); <- notify the board that the link moved to update it?? (TO DO)
