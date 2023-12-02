@@ -7,6 +7,10 @@ struct Point{
     Point operator +(Point other) {
         return Point{y+other.y, x+other.x};
     }
+
+    bool operator ==(Point other) {
+        return (y==other.y) && (x==other.x);
+    }
 };
 
 #endif

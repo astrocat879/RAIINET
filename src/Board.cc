@@ -3,10 +3,7 @@
 using namespace std;
 
 Board::Board(): playerCnt{2}, td{nullptr}{
-  for (int i=0;i<boardSize;i++) {
-    theBoard.push_back(vector<Cell>(boardSize));
-  }
-  
+
 }
 
 Board::~Board() {
@@ -27,9 +24,15 @@ Board::~Board() {
 //   return true;
 // }
 
-// void Board::init() {
+void Board::init() {
+  for (int i=0;i<boardSize;i++) {
+    if (i == 7) {
+      
+    }
+    theBoard.push_back(vector<Cell>(boardSize));
+  }
   
-// }
+}
 
 void Board::addPlayer(Player* p) {
   players.push_back(p);
