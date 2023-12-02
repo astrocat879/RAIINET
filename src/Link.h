@@ -11,9 +11,9 @@ class Link{
     int strength;
     char type; // D or V
     bool isRevealed;
-    Board * Board;
+    // Board * Board;
     // int playerId;
-    // Player * player;
+    Player* player;
 
     public:
         Link(char id, Point p, char type, int strength);
@@ -21,6 +21,8 @@ class Link{
         char getType();
         char getId();
         int getStrength();
+        Player* getPlayer();
+        
         void reveal();
         void move(Point dir);
         bool battle(Link *other); 

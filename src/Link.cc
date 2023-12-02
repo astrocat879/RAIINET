@@ -26,6 +26,11 @@ int Link::getStrength()
     return strength;
 }
 
+Player* Link::getPlayer() {
+    return player;
+}
+
+
 void Link::move(Point dir)
 {
     p = p + dir;
