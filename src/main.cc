@@ -12,9 +12,12 @@ int main(int argc, const char* argv[]){
     string cmd;
     // init board
     Board board{};
+    cout << "DEBUG: Board made" << '\n';
     board.addPlayer(new Player{0});
     board.addPlayer(new Player{1});
+    cout << "DEBUG: Added players" << '\n';
     board.init();
+    cout << "DEBUG: Finished init" << '\n';
     // process cmd arguments
     string allArgs;
     for (int i=1;i<argc;i++){
@@ -48,13 +51,15 @@ int main(int argc, const char* argv[]){
 
         }
     }
+    cout << "DEBUG: Processed Arguments" << '\n';
     // set up default initializations for ability and link (TO DO)
     if (!link1) {
-        board.initPlayer(board.getPlayer(1));
+        board.initPlayer(board.getPlayer(0));
     }
     if (!link2) {
-        board.initPlayer(board.getPlayer(2));
+        board.initPlayer(board.getPlayer(1));
     }
+    cout << "DEBUG: Processed default arguemnts" << '\n';
     while (cin >> cmd) {
         if (cmd == "move") {            // move a piece given the ID of the link and the direction
             char linkID;

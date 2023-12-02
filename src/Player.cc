@@ -17,7 +17,7 @@ Player::Player(int id) : id{id}, downloadCount{0}, virusCount{0}
         up = {1, 0};
         linkIDs = "abcdefg";
     } else if (id == 1) {
-        botLeft = {0, 0};
+        botLeft = {7, 7};
         right = {0, -1};
         up = {-1, 0};
         linkIDs = "ABCDEFG";
@@ -33,7 +33,7 @@ void Player::init(string layout){
         char type = link[0];
         int strength = link[1] - '0';
         // calculate coordinate of link
-        Point tmp = botLeft + right;
+        Point tmp = botLeft + right * i;
         if (i == 3 || i == 4) {
             tmp = botLeft + up;
         }
@@ -44,19 +44,25 @@ void Player::init(string layout){
 }
 
 void Player::init(){
+    cout << "DEBUG: start player default init" << '\n';
     vector<string> layout = {"V1", "V2", "V3", "V4", "D1", "D2", "D3", "D4"};
     random_shuffle(layout.begin(), layout.end());
+    cout << "DEBUG: shuffled" << '\n';
     for (int i=0; i<8; i++) {
         string link;
         link = layout[i];
         // handle error checking on link (TO DO)
         char type = link[0];
         int strength = link[1] - '0';
+        cout << "DEBUG: got link " << link << '\n';
         // calculate coordinate of link
-        Point tmp = botLeft + right;
+        cerr << "DEBUG: botLeft, right " << botLeft << ' ' << right << '\n';
+        Point tmp = botLeft + right * i;
+        cout << "DEBUG: " << tmp.y << ", "<< tmp.x << '\n';
         if (i == 3 || i == 4) {
             tmp = botLeft + up;
         }
+        cout << "DEBUG: make new link" << '\n';
         Link * newLink = new Link(linkIDs[i], tmp, type, strength);
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);

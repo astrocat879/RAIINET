@@ -10,6 +10,10 @@ struct Point{
         return Point{y+other.y, x+other.x};
     }
 
+    Point operator *(int other) {
+        return Point{y*other, x*other};
+    }
+
     bool operator ==(Point other) {
         return (y==other.y) && (x==other.x);
     }
@@ -45,6 +49,11 @@ struct Point{
         else if (dir == "left") {
             return Point{0, -1};
         }
+    }
+
+    friend ostream &operator<<(ostream &out, const Point &p) {
+        out << "(" << p.y << ", " << p.x << ")";
+        return out;
     }
 };
 
