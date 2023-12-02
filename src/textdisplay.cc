@@ -1,22 +1,25 @@
 #include <iostream>
 #include "textdisplay.h"
-#include "cell.h"
+#include "Cell.h"
 using namespace std;
 
 TextDisplay::TextDisplay(int n): gridSize{n} {
   for (int i=0; i<gridSize; i++) {
     theDisplay.emplace_back(vector<char>());
     for (int j=0; j<gridSize; j++) {
-      theDisplay[i].emplace_back('_');
+      theDisplay[i].emplace_back('.');
     }
   }
 }
 
 void TextDisplay::notify(Cell &c) {
-  if (c.getState()) {
-    theDisplay[c.getRow()][c.getCol()] = 'X';
+  int x = c.getX();
+  int y = c.getY();
+  Link * link = c.getLink();
+  if (link == nullptr) {
+    theDisplay[y][x] = '.';
   } else {
-    theDisplay[c.getRow()][c.getCol()] = '_';
+    theDisplay[y][x] = link->getId();
   }
 }
 

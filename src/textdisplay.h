@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "observer.h"
-class Cell;
+#include "Cell.h"
 
 class TextDisplay: public Observer {
   std::vector<std::vector<char>> theDisplay;
