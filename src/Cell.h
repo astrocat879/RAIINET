@@ -6,7 +6,7 @@
 #include "observer.h"
 #include "Link.h"
 
-class Cell : public Observer {
+class Cell{
   std::vector<Observer*> observers;
   Point p;
   Link* link; 
@@ -15,14 +15,14 @@ class Cell : public Observer {
 
  public:
   Cell();  // Default constructor
-  Cell(int x, int y): p{Point {0, 1,}} {}
+  Cell(int x, int y): p{Point {0, 1}} {}
   ~Cell(); // Destructor
 
   int getX() const; // Returns the value of x.
   int getY() const; // Returns the value of y.
   Link* getLink() const; // Returns the pointer to the link in this cell
   void setCoords(int x, int y);  // Tells me my row and column number.
-
+  void addObserver(Observer * o);
   void detachLink();
   virtual void attachLink(Link *l);
 

@@ -33,6 +33,16 @@ void Cell::attachLink(Link *l) {
   }
 }
 
+void Cell::addObserver(Observer * o) {
+  observers.push_back(o);
+}
+
+void Cell::notifyObservers(){
+  for (Observer * o: observers) {
+    o->notify(*this);
+  }
+}
+
 void Cell::detachLink() {
   link = nullptr;
 }
