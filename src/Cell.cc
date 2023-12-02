@@ -5,13 +5,15 @@
 using namespace std;
 
 Cell::Cell(): p{Point {0, 0}}, link{nullptr} {}
-Cell::Cell(int x, int y): p{Point {y, x}}, link{nullptr} {}
+Cell::Cell(int y, int x): p{Point {y, x}}, link{nullptr} {}
 
 int Cell::getX() const { return p.x; }
 int Cell::getY() const { return p.y; }
 
-Link* Cell::getLink() const {
-  return link;
+Link* Cell::getLink() const { return link; }
+
+char Cell::getType() const {
+  return '.';
 }
 
 void Cell::setCoords(int y, int x) { p = {y, x}; }
@@ -35,10 +37,13 @@ void Cell::attachLink(Link *l) {
   else {
     link = l;
   }
+
+  notifyObservers();
 }
 
 void Cell::addObserver(Observer * o) {
   observers.push_back(o);
+  notifyObservers();
 }
 
 void Cell::notifyObservers(){
@@ -49,6 +54,19 @@ void Cell::notifyObservers(){
 
 void Cell::detachLink() {
   link = nullptr;
+  notifyObservers();
+}
+
+
+ostream& operator<<(ostream& out, const Cell& c) {
+  if (c.link == nullptr) {
+    // cerr << "DEBUG: link == nullptr" << endl;
+    out << '.';
+  } else {
+    // cerr << "DEBUG: " << *(c.link) << endl;
+    out << c.link->getId();
+  }
+  return out;
 }
 
 Cell::~Cell () {

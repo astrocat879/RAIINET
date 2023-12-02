@@ -19,9 +19,12 @@ void TextDisplay::notify(Cell &c) {
   int x = c.getX();
   int y = c.getY();
   Link * link = c.getLink();
+  cerr << "DEBUG: TextDisplay.notify() x: " << x << ", y: " << y << endl;
   if (link == nullptr) {
-    theDisplay[y][x] = '.';
+    cerr << "DEBUG: link == nullptr" << endl;
+    theDisplay[y][x] = c.getType();
   } else {
+    cerr << "DEBUG: " << *link << endl;
     theDisplay[y][x] = link->getId();
   }
 }

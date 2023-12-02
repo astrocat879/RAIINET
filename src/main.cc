@@ -16,7 +16,6 @@ int main(int argc, const char* argv[]){
     board.addPlayer(new Player{0});
     board.addPlayer(new Player{1});
     cout << "DEBUG: Added players" << '\n';
-    board.init();
     cout << "DEBUG: Finished init" << '\n';
     // process cmd arguments
     string allArgs;
@@ -59,6 +58,9 @@ int main(int argc, const char* argv[]){
     if (!link2) {
         board.initPlayer(board.getPlayer(1));
     }
+
+    board.init();
+
     cout << "DEBUG: Processed default arguemnts" << '\n';
     while (cin >> cmd) {
         if (cmd == "move") {            // move a piece given the ID of the link and the direction
@@ -79,9 +81,9 @@ int main(int argc, const char* argv[]){
             cin >> n;
         }
         else if (cmd == "board") {      // display the board
-            cout << board.getPlayer(1);
+            cout << *(board.getPlayer(0));
             cout << board;
-            cout << board.getPlayer(2);
+            cout << *(board.getPlayer(1));
         }
         else if (cmd == "sequence") {   // execute sequence of cmds found in a file
             

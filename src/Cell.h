@@ -15,18 +15,20 @@ class Cell{
 
  public:
   Cell();  // Default constructor
-  Cell(int x, int y);
+  Cell(int y, int x);
   ~Cell(); // Destructor
 
   int getX() const; // Returns the value of x.
   int getY() const; // Returns the value of y.
   Link* getLink() const; // Returns the pointer to the link in this cell
-  void setCoords(int x, int y);  // Tells me my row and column number.
+  virtual char getType() const; // Returns . for normal cell, S for server port, and M or W for firewall
+  void setCoords(int y, int x);  // Tells me my row and column number.
   void addObserver(Observer * o);
   void detachLink();
   virtual void attachLink(Link *l);
   void notifyObservers();
 
   // void notify(); // needed? not sure
+  friend ostream& operator<<(ostream& out, const Cell& c);
 };
 #endif

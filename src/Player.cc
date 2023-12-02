@@ -15,12 +15,12 @@ Player::Player(int id) : id{id}, downloadCount{0}, virusCount{0}
         botLeft = {0, 0};
         right = {0, 1};
         up = {1, 0};
-        linkIDs = "abcdefg";
+        linkIDs = "abcdefgh";
     } else if (id == 1) {
         botLeft = {7, 7};
         right = {0, -1};
         up = {-1, 0};
-        linkIDs = "ABCDEFG";
+        linkIDs = "ABCDEFGH";
     }
 }
 
@@ -35,7 +35,7 @@ void Player::init(string layout){
         // calculate coordinate of link
         Point tmp = botLeft + right * i;
         if (i == 3 || i == 4) {
-            tmp = botLeft + up;
+            tmp = tmp + up;
         }
         Link * newLink = new Link(linkIDs[i], tmp, type, strength);
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
@@ -60,7 +60,7 @@ void Player::init(){
         Point tmp = botLeft + right * i;
         cout << "DEBUG: " << tmp.y << ", "<< tmp.x << '\n';
         if (i == 3 || i == 4) {
-            tmp = botLeft + up;
+            tmp = tmp + up;
         }
         cout << "DEBUG: make new link" << '\n';
         Link * newLink = new Link(linkIDs[i], tmp, type, strength);
@@ -138,7 +138,7 @@ Player::~Player()
 ostream &operator<<(ostream &out, const Player &p)
 {
     out << "Player 1:\n";
-    out << "Downloaded:";
+    out << "Downloaded: ";
     for (int i=0; i<p.links.size(); i++) {
         if (i == 0) {
             out << ' ';

@@ -12,6 +12,7 @@ class ServerPort : public Cell {
   public:
     ServerPort();  // Default constructor
     ServerPort(int x, int y, Player* p);
+    char getType() const; // Returns . for normal cell, S for server port, and M or W for firewall
     void attachLink(Link *l);
 };
 #endif
