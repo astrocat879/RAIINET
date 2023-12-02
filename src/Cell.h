@@ -25,6 +25,7 @@ class Cell{
   void addObserver(Observer * o);
   void detachLink();
   virtual void attachLink(Link *l);
+  void notifyObservers();
 
   // void notify(); // needed? not sure
 };

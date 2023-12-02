@@ -13,6 +13,7 @@ int main(int argc, const char* argv[]){
     Board board{};
     board.addPlayer(new Player{1});
     board.addPlayer(new Player{2});
+    board.init();
     // process cmd arguments
     string allArgs;
     for (int i=1;i<argc;i++){
