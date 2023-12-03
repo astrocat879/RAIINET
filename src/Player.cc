@@ -41,6 +41,7 @@ void Player::init(string layout){
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);
     }
+    notifyObservers();
 }
 
 void Player::init(){
@@ -67,6 +68,7 @@ void Player::init(){
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);
     }
+    notifyObservers();
 }
 
 vector<Link*>::iterator Player::getLinkBeginIterator() {
@@ -93,6 +95,7 @@ void Player::moveLink(Link * l, Point dir) {
     l->move(dir, up, right);
     // board.moveLink
     // Board.notify(l); <- notify the board that the link moved to update it?? (TO DO)
+    notifyObservers();
 }
 
 // called by anything that forces player to download
@@ -110,6 +113,7 @@ void Player::downloadLink(Link * l) {
     }
     downloaded.push_back(l);
     l->getPlayer()->removeLink(l);
+    notifyObservers();
 }
 
 void Player::removeLink(Link * l) {
@@ -121,6 +125,7 @@ void Player::removeLink(Link * l) {
             return;
         }
     }
+    notifyObservers();
 }
 
 Link * Player::getLinkById(char id) {
@@ -152,7 +157,23 @@ Player::~Player()
 
 }
 
+vector<Link*>::iterator Player::getDownloadBeginIterator() {
+    return downloaded.begin();
+}
 
+vector<Link*>::iterator Player::getDownloadEndIterator() {
+    return downloaded.end();
+}
+
+void Player::addObserver(Observer * o) {
+    observers.push_back(o);
+}
+
+void Player::notifyObservers(){
+  for (Observer * o: observers) {
+    o->notify(*this);
+  }
+}
 
 ostream &operator<<(ostream &out, const Player &p)
 {

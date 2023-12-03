@@ -83,9 +83,7 @@ int main(int argc, const char* argv[]){
             // TO DO: lock players out of using this after using this once
         }
         else if (cmd == "board") {      // display the board
-            cout << *(board.getPlayer(0));
             cout << board;
-            cout << *(board.getPlayer(1));
         }
         else if (cmd == "sequence") {   // execute sequence of cmds found in a file
             
