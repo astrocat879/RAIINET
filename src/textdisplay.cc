@@ -50,7 +50,7 @@ void TextDisplay::notify(Player &p) {
     downloaded[p.getId()][index] = to_string((*l)->getType())+to_string((*l)->getStrength());
     ++index;
   }
-  numOfAbilities[p.getId()] = p.getAbilityCnt();
+  numOfAbilities[p.getId()] = p.getAbilityCount();
   for (auto l = p.getLinkBeginIterator(); l != p.getLinkEndIterator(); ++l) {
     cerr << "DEBUG: player notify cur link: " << *(*l) << endl;
     stringstream ss;
