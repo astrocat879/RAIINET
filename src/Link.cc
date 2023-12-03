@@ -32,8 +32,8 @@ Point Link::getNewPos(Point dir, Point up, Point right) {
     // TO DO: doesn't work for players 3 and 4
 }
 
-void Link::move(Point dir) {
-    p = p + dir;
+void Link::move(Point dir, Point up, Point right) {
+    p = getNewPos(dir, up, right);
 }
 
 bool Link::battle(Link *other) { // true if this link wins

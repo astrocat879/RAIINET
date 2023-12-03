@@ -103,8 +103,9 @@ void Board::moveLink(Link *l, Point oldP, Point newP) { // needs to use Points (
 
   NOTE: that when downloading a link, you need to remove it from the other player with Player.removeLink(Link* l)
   */
-    theBoard[oldP.y][oldP.x]->detachLink();
-    theBoard[newP.y][newP.x]->attachLink(l);
+  cerr << "DEBUG: " << newP << " MOVE link\n";
+  theBoard[oldP.y][oldP.x]->detachLink();
+  theBoard[newP.y][newP.x]->attachLink(l);
 }
 
 ostream &operator<<(ostream &out, const Board &g) {

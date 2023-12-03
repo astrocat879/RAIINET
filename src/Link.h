@@ -26,7 +26,7 @@ class Link{
         Point getPoint();
         Point getNewPos(Point dir, Point up, Point right);
         void reveal();
-        void move(Point dir);
+        void move(Point dir, Point up, Point right);
         bool battle(Link *other); 
         friend std::ostream &operator<<(std::ostream &out, const Link &l);
 };

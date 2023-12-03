@@ -25,6 +25,7 @@ void Cell::attachLink(Link *l) {
       If this cell already contains link (which can only be enemy link), battle:
         if incoming link wins, put incoming link in the cell and current enemy link is put into incomingLink.getPlayer.downloadLink(currentLink)
   */
+  cerr << "DEBUG: Atttaching link\n";
   if (link != nullptr) { //if a cell is occupied, the links must fight
     if (l->battle(link)) { //if incoming beats current, incoming's player downloads current
       l->getPlayer()->downloadLink(link);

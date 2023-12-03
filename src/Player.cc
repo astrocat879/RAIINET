@@ -81,6 +81,7 @@ vector<Link*>::iterator Player::getLinkEndIterator() {
 
 void Player::moveLink(Link * l, Point dir) {
     Point newPos = l->getNewPos(dir, up, right);
+    cerr << "DEBUG: new pos obtained " << '\n';
     if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
         throw std::invalid_argument("End position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
     }
@@ -88,7 +89,8 @@ void Player::moveLink(Link * l, Point dir) {
         l->getPlayer()->downloadLink(l);
         return;
     }
-    l->move(dir);
+    cerr << "DEBUG: pass bound checks " << '\n';
+    l->move(dir, up, right);
     // board.moveLink
     // Board.notify(l); <- notify the board that the link moved to update it?? (TO DO)
 }
