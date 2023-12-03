@@ -18,6 +18,13 @@ Board::~Board() {
 
 void Board::init() {
   td = new TextDisplay(boardSize);
+  cerr << "DEBUG: Board.init() reached" << endl;
+  for (Player* p : players) {
+    cerr << "DEBUG: Board.init() player " << to_string(p->getId()) << endl;
+    p->addObserver(td);
+    p->notifyObservers();
+  }
+
   // adding cells
   for (int i=0; i<boardSize; i++) {
     theBoard.push_back(vector<Cell *>(boardSize));

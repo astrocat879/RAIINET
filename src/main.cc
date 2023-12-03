@@ -106,9 +106,7 @@ int main(int argc, const char* argv[]){
             cout << abilityName << "!" << endl;
         }
         else if (cmd == "board") {      // display the board
-            cout << *(board.getPlayer(0));
             cout << board;
-            cout << *(board.getPlayer(1));
         }
         else if (cmd == "sequence") {   // execute sequence of cmds found in a file
             

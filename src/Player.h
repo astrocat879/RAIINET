@@ -7,6 +7,7 @@
 #include "Ability.h"
 #include "Link.h"
 #include "textdisplay.h"
+#include "textdisplay.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ class Link;
 
 class Player
 {
+    vector<Observer*> observers;
     vector<Observer*> observers;
     int id;
     Point right, up;                // represents what change in x and y represents "up" and "right" for a player
@@ -48,6 +50,8 @@ public:
     void initAbility(string abilityList = "LFDSP"); // initializes abilities for player
     void initAbilityParams(int id, char c, Player *other);
     void useAbility(int abilityId);
+    void addObserver(Observer * o); 
+    void notifyObservers();
     void addObserver(Observer * o); 
     void notifyObservers();
 
