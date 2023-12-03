@@ -91,6 +91,7 @@ int Board::getCurPlayer() {
 
 void Board::switchTurns() {
   curPlayer = (curPlayer+1)%playerCnt;
+  td->changePlayer(curPlayer);
 }
 
 void Board::moveLink(Link *l, Point oldP, Point newP) { // needs to use Points (TO DO)
