@@ -29,6 +29,7 @@ void Cell::attachLink(Link *l) {
   if (link != nullptr) { //if a cell is occupied, the links must fight
     // cerr << "DEBUG: Battle starts\n";
     if (l->getPlayer()->getId() == link->getPlayer()->getId()) {
+      cerr << *link << '\n';
       throw logic_error("Moving link onto another link owned by player");
     }
     if (l->battle(link)) { //if incoming beats current, incoming's player downloads current
@@ -44,7 +45,6 @@ void Cell::attachLink(Link *l) {
   else {
     link = l;
   }
-
   notifyObservers();
 }
 

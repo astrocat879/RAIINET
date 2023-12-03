@@ -13,8 +13,8 @@ int main(int argc, const char* argv[]){
     // init board
     Board board{};
     cout << "DEBUG: Board made" << '\n';
-    board.addPlayer(new Player{0});
-    board.addPlayer(new Player{1});
+    board.addPlayer(new Player{0, &board});
+    board.addPlayer(new Player{1, &board});
     cout << "DEBUG: Added players" << '\n';
     cout << "DEBUG: Finished init" << '\n';
     // process cmd arguments
@@ -27,7 +27,6 @@ int main(int argc, const char* argv[]){
     bool link1, link2, ability1, ability2;
     while (iss >> cmd) {
         if (cmd == "-ability1") {
-            
         } else if (cmd == "-ability2") {
 
         } else if (cmd == "-link1") {
@@ -71,8 +70,10 @@ int main(int argc, const char* argv[]){
                 Player* curPlayer = board.getPlayer(board.getCurPlayer());
                 Link* curLink = curPlayer->getLinkById(linkID);
                 Point oldPos = curLink->getPoint();
-                curPlayer->moveLink(curLink, Point::translate(dir));
-                board.moveLink(curLink, oldPos, curLink->getPoint());
+
+                curPlayer->makeMove(curLink, Point::translate(dir));
+                // board.moveLink(curLink, oldPos, curLink->getPoint());
+                // curLink->move(Point::translate(dir));
                 board.switchTurns();
             } 
             else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used

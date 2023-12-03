@@ -3,13 +3,14 @@
 #include <string>
 #include <algorithm>
 #include "Player.h"
+#include "Board.h"
 using namespace std;
 
 pair<int, int> addPoints (pair<int, int> a, pair<int, int> b){
     return {a.first + b.first, a.second + b.second};
 }
 
-Player::Player(int id) : id{id}, downloadCount{0}, virusCount{0}
+Player::Player(int id, Board * board) : id{id}, downloadCount{0}, virusCount{0}, board{board}
 {
     if (id == 0) {
         botLeft = {0, 0};
@@ -37,7 +38,7 @@ void Player::init(string layout){
         if (i == 3 || i == 4) {
             tmp = tmp + up;
         }
-        Link * newLink = new Link(linkIDs[i], tmp, type, strength, this);
+        Link * newLink = new Link(linkIDs[i], tmp, up, right, type, strength, this);
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);
     }
@@ -63,7 +64,7 @@ void Player::init(){
             tmp = tmp + up;
         }
         cout << "DEBUG: make new link" << '\n';
-        Link * newLink = new Link(linkIDs[i], tmp, type, strength, this);
+        Link * newLink = new Link(linkIDs[i], tmp, up, right, type, strength, this);
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);
     }
@@ -79,9 +80,10 @@ vector<Link*>::iterator Player::getLinkEndIterator() {
 
 
 
-void Player::moveLink(Link * l, Point dir) {
-    Point newPos = l->getNewPos(dir, up, right);
-    cerr << "DEBUG: new pos obtained " << '\n';
+void Player::makeMove(Link * l, Point dir) {
+    Point oldPos = l->getPoint();
+    Point newPos = l->getNewPos(dir);
+    cerr << "DEBUG: new pos obtained " << newPos << '\n';
     if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
         throw std::invalid_argument("End position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
     }
@@ -89,8 +91,10 @@ void Player::moveLink(Link * l, Point dir) {
         l->getPlayer()->downloadLink(l);
         return;
     }
-    cerr << "DEBUG: pass bound checks " << '\n';
-    l->move(dir, up, right);
+    board->getCell(newPos)->attachLink(l);
+    board->getCell(oldPos)->detachLink();
+
+    // l->move(dir, up, right);
     // board.moveLink
     // Board.notify(l); <- notify the board that the link moved to update it?? (TO DO)
 }
@@ -113,6 +117,7 @@ void Player::downloadLink(Link * l) {
 }
 
 void Player::removeLink(Link * l) {
+    // TO DO: fix this
     cerr << "DEBUG: Removing link\n"; 
     links.erase(find(links.begin(), links.end(), l));
     for (int i=0;i<links.size();i++) {

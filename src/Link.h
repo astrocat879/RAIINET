@@ -9,6 +9,8 @@ class Player;
 class Link{
     char id;
     Point p;
+    Point up;
+    Point right;
     int strength;
     char type; // D or V
     bool isRevealed;
@@ -17,16 +19,16 @@ class Link{
     Player* player;
 
     public:
-        Link(char id, Point p, char type, int strength, Player * player);
+        Link(char id, Point p, Point up, Point right, char type, int strength, Player * player);
         ~Link();
         char getType();
         char getId();
         int getStrength();
         Player* getPlayer();
         Point getPoint();
-        Point getNewPos(Point dir, Point up, Point right);
+        Point getNewPos(Point dir);
         void reveal();
-        void move(Point dir, Point up, Point right);
+        void move(Point dir);
         bool battle(Link *other); 
         friend std::ostream &operator<<(std::ostream &out, const Link &l);
 };
