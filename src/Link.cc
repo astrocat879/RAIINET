@@ -3,7 +3,7 @@
 #include "Player.h"
 using namespace std;
 
-Link::Link(char id, Point p, char type, int strength) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false} {}
+Link::Link(char id, Point p, char type, int strength, Player * player) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false}, player{player} {}
 
 Link::~Link() {}
 

@@ -37,7 +37,7 @@ void Player::init(string layout){
         if (i == 3 || i == 4) {
             tmp = tmp + up;
         }
-        Link * newLink = new Link(linkIDs[i], tmp, type, strength);
+        Link * newLink = new Link(linkIDs[i], tmp, type, strength, this);
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);
     }
@@ -63,7 +63,7 @@ void Player::init(){
             tmp = tmp + up;
         }
         cout << "DEBUG: make new link" << '\n';
-        Link * newLink = new Link(linkIDs[i], tmp, type, strength);
+        Link * newLink = new Link(linkIDs[i], tmp, type, strength, this);
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);
     }
@@ -101,6 +101,8 @@ void Player::moveLink(Link * l, Point dir) {
 //             - board calls download link on that Link
 //         - board handles battle between link
 void Player::downloadLink(Link * l) {
+    cerr << "DEBUG: download link\n"; 
+    cerr << "DEBUG: " << l->getType() << '\n';
     if (l->getType() == 'V') {
         virusCount ++;
     } else if (l->getType() == 'D') {
@@ -111,7 +113,14 @@ void Player::downloadLink(Link * l) {
 }
 
 void Player::removeLink(Link * l) {
+    cerr << "DEBUG: Removing link\n"; 
     links.erase(find(links.begin(), links.end(), l));
+    for (int i=0;i<links.size();i++) {
+        if (links[i]->getId() == l->getId()) {
+            links.erase(links.begin() + i);
+            return;
+        }
+    }
 }
 
 Link * Player::getLinkById(char id) {

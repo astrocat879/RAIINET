@@ -17,7 +17,7 @@ class Link{
     Player* player;
 
     public:
-        Link(char id, Point p, char type, int strength);
+        Link(char id, Point p, char type, int strength, Player * player);
         ~Link();
         char getType();
         char getId();
