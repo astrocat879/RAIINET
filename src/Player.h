@@ -32,6 +32,8 @@ public:
     vector<Link*>::iterator getLinkEndIterator();       // returns the end() iterator for the links vector
     void moveLink(Link * l, Point dir);
     void downloadLink(Link * l);
+    int getDownloadCount();
+    int getVirusCount();
     void removeLink(Link * l);
     Link * getLinkById(char id);
     int getId();
