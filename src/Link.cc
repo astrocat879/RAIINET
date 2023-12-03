@@ -3,7 +3,7 @@
 #include "Player.h"
 using namespace std;
 
-Link::Link(char id, Point p, char type, int strength, Player * player) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false}, player{player} {}
+Link::Link(char id, Point p, char type, int strength, Player * player) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false}, player{player}, steps{1} {}
 
 Link::~Link() {}
 
@@ -28,8 +28,12 @@ Point Link::getPoint() {
 }
 
 Point Link::getNewPos(Point dir, Point up, Point right) {
-    return {dir.y * up.y + p.y, dir.x * right.x + p.x};
+    return {dir.y * up.y * steps + p.y, dir.x * right.x * steps + p.x};
     // TO DO: doesn't work for players 3 and 4
+}
+
+bool Link::getReveal() {
+    return isRevealed;
 }
 
 void Link::move(Point dir, Point up, Point right) {
@@ -46,6 +50,14 @@ bool Link::battle(Link *other) { // true if this link wins
 
 void Link::reveal() {
     isRevealed = true;
+}
+
+void Link::setSteps(int val) {
+    steps = val;
+}
+
+void Link::setType(char c) {
+    type = c;
 }
 
 ostream &operator<<(ostream &out, const Link &l) {
