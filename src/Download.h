@@ -9,7 +9,9 @@ class Download : public Ability {
     Link *link;
     
     public:
-        Download(int id, Player *player, Link *link);
+        Download(int id, Player *player);
+        void setLink(Link *l);
+        Link getLink();
         void useAbility() override; 
 };
 

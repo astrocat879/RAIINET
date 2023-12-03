@@ -5,10 +5,11 @@
 using namespace std;
 
 class Recycle : public Ability {
-    Ability *a;
+    Ability *ability;
     
     public:
-        Recycle(int id, Player *player, Ability *a);
+        Recycle(int id, Player *player);
+        void setAbility(Ability *a);
         void useAbility() override; 
 };
 

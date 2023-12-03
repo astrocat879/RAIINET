@@ -9,7 +9,8 @@ class FirewallAbility : public Ability {
     Cell *c;
     
     public:
-        FirewallAbility(int id, Player *player, Cell *c);
+        FirewallAbility(int id, Player *player);
+        void setCell(int x, int y);
         void useAbility() override; 
 };
 

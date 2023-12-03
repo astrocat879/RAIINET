@@ -9,7 +9,8 @@ class Polarize : public Ability {
     Link *link;
     
     public:
-        Polarize(int id, Player *player, Link *link);
+        Polarize(int id, Player *player);
+        void setLink(Link *l);
         void useAbility() override; 
 };
 

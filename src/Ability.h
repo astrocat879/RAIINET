@@ -17,11 +17,12 @@ class Ability
 
     public:
         Ability(int id, Player *player);
-        ~Ability();
+        virtual ~Ability();
         int getId();
         bool getUsed();
         string getName();
         void flipUsed();
+        void displayAbility();
         virtual void useAbility() = 0;
 };
 #endif

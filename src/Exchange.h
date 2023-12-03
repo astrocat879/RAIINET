@@ -10,7 +10,8 @@ class Exchange : public Ability {
     Link *link2;
     
     public:
-        Exchange(int id, Player *player, Link *l1, Link *l2);
+        Exchange(int id, Player *player);
+        void setLinks(Link *l1, Link *l2);
         void useAbility() override; 
 };
 

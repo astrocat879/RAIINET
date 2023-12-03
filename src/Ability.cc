@@ -21,3 +21,7 @@ string Ability::getName() {
 void Ability::flipUsed() {
     used = !used;
 }
+
+void Ability::displayAbility() {
+    cout << "Name: " << name << "   ID: " << id << "   Used: " << (used ? "Yes" : "No") << endl;
+}

@@ -6,11 +6,11 @@
 using namespace std;
 
 class LinkBoost : public Ability {
-    const int steps = 2;
     Link *link;
-    
+
     public:
-        LinkBoost(int id, Player *player, Link *link);
+        LinkBoost(int id, Player *player);
+        void setLink(Link *l);
         void useAbility() override; 
 };
 

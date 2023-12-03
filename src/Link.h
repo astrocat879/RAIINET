@@ -21,7 +21,7 @@ class Link{
     // int playerId;
     Player* player;
 
-    void setSteps(int val); // sets steps for the link, used by LinkBoost 
+    void addStep(); // allows link to move one step further, used by LinkBoost 
     void setType(char c); // sets type for the link, used by Polarize
 
     public:

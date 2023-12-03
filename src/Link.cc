@@ -52,8 +52,8 @@ void Link::reveal() {
     isRevealed = true;
 }
 
-void Link::setSteps(int val) {
-    steps = val;
+void Link::addStep() {
+    ++steps;
 }
 
 void Link::setType(char c) {

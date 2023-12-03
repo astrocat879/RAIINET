@@ -9,7 +9,8 @@ class Scan : public Ability {
     Link *link;
     
     public:
-        Scan(int id, Player *player, Link *link);
+        Scan(int id, Player *player);
+        void setLink(Link *l);
         void useAbility() override; 
 };
 

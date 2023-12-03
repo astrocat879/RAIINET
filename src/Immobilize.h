@@ -9,7 +9,8 @@ class Immobilize : public Ability {
     Link *link;
     
     public:
-        Immobilize(int id, Player *player, Link *link);
+        Immobilize(int id, Player *player);
+        void setLink(Link *l);
         void useAbility() override; 
 };
 
