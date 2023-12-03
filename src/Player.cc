@@ -135,6 +135,14 @@ int Player::getAbilityCnt(){
     return abilities.size();
 }
 
+int Player::getDownloadCount(){
+    return downloadCount;
+}
+
+int Player::getVirusCount(){
+    return virusCount;
+}
+
 int Player::getId(){
     return id;
 }
@@ -150,7 +158,7 @@ ostream &operator<<(ostream &out, const Player &p)
 {
     // TO DO: make player have an observer so text display can do this
     out << "Player 1:\n";
-    out << "Downloaded: ";
+    out << "Downloaded:";
     for (int i=0; i<p.downloaded.size(); i++) {
         if (i == 0) {
             out << ' ';

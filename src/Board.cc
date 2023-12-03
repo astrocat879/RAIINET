@@ -16,17 +16,6 @@ Board::~Board() {
   }
 }
 
-// bool Board::isWon() const {
-//   for (int i=0; i<BoardSize; i++) {
-//     for (int j=0; j<BoardSize; j++) {
-//       if (theBoard[i][j].getState() == 1) {
-//         return false;
-//       }
-//     }
-//   }
-//   return true;
-// }
-
 void Board::init() {
   td = new TextDisplay(boardSize);
   // adding cells
@@ -71,6 +60,7 @@ void Board::init() {
 
 void Board::addPlayer(Player* p) {
   players.push_back(p);
+  playerOut.push_back(false);
 }
 
 void Board::initPlayer(Player * p, string s) {
@@ -91,6 +81,26 @@ int Board::getCurPlayer() {
 
 void Board::switchTurns() {
   curPlayer = (curPlayer+1)%playerCnt;
+}
+
+int Board::isWon() {
+  for (int i=0; i<playerCnt; i++) {
+    Player * p = players[i];
+    if (p->getDownloadCount() == 4) {
+      return p->getId();
+    } else if (p->getVirusCount() == 4) {
+      playerOut[i] = true;
+      playersOutCnt ++;
+    } 
+  }
+  if (playersOutCnt == playerCnt - 1) {
+    for (int i=0; i<playerCnt; i++) {
+      if (playerOut[i] == false) {
+        return i;
+      }
+    }
+  }
+  return -1;
 }
 
 void Board::moveLink(Link *l, Point oldP, Point newP) { // needs to use Points (TO DO)
