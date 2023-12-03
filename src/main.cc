@@ -93,5 +93,6 @@ int main(int argc, const char* argv[]){
         else if (cmd == "quit") {       // exit game
 
         }
+        board.isWon();
     }
 }

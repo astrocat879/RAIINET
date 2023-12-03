@@ -28,7 +28,7 @@ class Link{
         friend class LinkBoost;
         friend class Polarize;
         friend class Exchange;
-        Link(char id, Point p, char type, int strength);
+        Link(char id, Point p, char type, int strength, Player * player);
         ~Link();
         char getType();
         char getId();

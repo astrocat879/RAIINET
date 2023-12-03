@@ -3,7 +3,7 @@
 #include "Cell.h"
 using namespace std;
 
-TextDisplay::TextDisplay(int n): gridSize{n} {
+TextDisplay::TextDisplay(int n): gridSize{n}, curPlayer{0} {
   for (int i=0; i<gridSize; i++) {
     theDisplay.emplace_back(vector<char>());
     for (int j=0; j<gridSize; j++) {
@@ -12,7 +12,10 @@ TextDisplay::TextDisplay(int n): gridSize{n} {
   }
 }
 
-TextDisplay::~TextDisplay(){
+TextDisplay::~TextDisplay() {}
+
+void TextDisplay::changePlayer(int nextPlayer) {
+  curPlayer = nextPlayer;
 }
 
 void TextDisplay::notify(Cell &c) {
@@ -33,7 +36,11 @@ ostream &operator<<(ostream &out, const TextDisplay &td) {
   out << "========" << '\n';
   for (int i=0; i<td.gridSize; i++) {
     for (int j=0; j<td.gridSize; j++) {
-      out << td.theDisplay[i][j];
+      int displayY = i; 
+      int displayX = j;
+      if (td.curPlayer == 0) displayY = td.gridSize-1 - i; 
+      else if (td.curPlayer == 1) displayX = td.gridSize-1 - j;
+      out << td.theDisplay[displayY][displayX];
     }
     out << '\n';
   }

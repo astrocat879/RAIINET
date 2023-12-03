@@ -17,6 +17,8 @@ class Board
     int playerCnt;                                  // The player count
     int curPlayer = 0;
     vector<Player *> players;                       // Array of players
+    vector<bool> playerOut;                         // Whether each player has won or lost
+    int playersOutCnt;
     const int boardSize = 8;                        // Size of the board
     TextDisplay *td;                                // The text display
     // GraphicsDisplay *gd;                            // The graphics display
@@ -26,7 +28,7 @@ public:
     ~Board();
 
     void addPlayer(Player * p);
-    // bool isWon() const;           // Call to determine if grid is in a winning state.
+    int isWon();           // Call to determine if board is in a winning state.
     void init(); // Sets up board, serverports, cells, textdisplay
     void initPlayer(Player * p, string s);
     void initPlayer(Player * p);
