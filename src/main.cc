@@ -63,35 +63,39 @@ int main(int argc, const char* argv[]){
 
     cout << "DEBUG: Processed default arguemnts" << '\n';
     while (cin >> cmd) {
-        if (cmd == "move") {            // move a piece given the ID of the link and the direction
-            char linkID;
-            string dir;
-            cin >> linkID >> dir;
-            Player* curPlayer = board.getPlayer(board.getCurPlayer());
-            Link* curLink = curPlayer->getLinkById(linkID);
-            Point oldPos = curLink->getPoint();
-            curPlayer->moveLink(curLink, Point::translate(dir));
-            board.moveLink(curLink, oldPos, curLink->getPoint());
-            board.switchTurns();
-        } 
-        else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
+        try {
+            if (cmd == "move") {            // move a piece given the ID of the link and the direction
+                char linkID;
+                string dir;
+                cin >> linkID >> dir;
+                Player* curPlayer = board.getPlayer(board.getCurPlayer());
+                Link* curLink = curPlayer->getLinkById(linkID);
+                Point oldPos = curLink->getPoint();
+                curPlayer->moveLink(curLink, Point::translate(dir));
+                board.moveLink(curLink, oldPos, curLink->getPoint());
+                board.switchTurns();
+            } 
+            else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
 
-        }
-        else if (cmd == "ability") {    // use ability with ID n
-            int n;
-            cin >> n;
-            // TO DO: lock players out of using this after using this once
-        }
-        else if (cmd == "board") {      // display the board
-            cout << *(board.getPlayer(0));
-            cout << board;
-            cout << *(board.getPlayer(1));
-        }
-        else if (cmd == "sequence") {   // execute sequence of cmds found in a file
-            
-        }
-        else if (cmd == "quit") {       // exit game
+            }
+            else if (cmd == "ability") {    // use ability with ID n
+                int n;
+                cin >> n;
+                // TO DO: lock players out of using this after using this once
+            }
+            else if (cmd == "board") {      // display the board
+                cout << *(board.getPlayer(0));
+                cout << board;
+                cout << *(board.getPlayer(1));
+            }
+            else if (cmd == "sequence") {   // execute sequence of cmds found in a file
+                
+            }
+            else if (cmd == "quit") {       // exit game
 
+            }
+        } catch (exception &e){
+            cerr << e.what() << '\n';
         }
         board.isWon();
     }
