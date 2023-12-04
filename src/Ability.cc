@@ -23,5 +23,9 @@ void Ability::flipUsed() {
 }
 
 void Ability::displayAbility() {
-    cout << "Name: " << name << "   ID: " << id << "   Used: " << (used ? "Yes" : "No") << endl;
+    string padding = "";
+    for (int i=0; i<2 - (name.length()/9); i++) {
+        padding += "\t";
+    }
+    cout << "Name: " << name << padding << "ID: " << id << "\tUsed: " << (used ? "Yes" : "No") << endl;
 }

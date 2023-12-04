@@ -1,4 +1,4 @@
-#include "Recycle.h";
+#include "Recycle.h"
 
 using namespace std;
 

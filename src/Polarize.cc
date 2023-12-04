@@ -1,4 +1,4 @@
-#include "Polarize.h";
+#include "Polarize.h"
 
 using namespace std;
 

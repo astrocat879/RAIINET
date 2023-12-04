@@ -21,6 +21,7 @@ void Board::init() {
   gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
   gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
   cerr << "DEBUG: Board.init() reached" << endl;
+  td = new TextDisplay(boardSize);
   for (Player* p : players) {
     cerr << "DEBUG: Board.init() player " << to_string(p->getId()) << endl;
     p->addObserver(td);

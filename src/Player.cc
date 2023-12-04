@@ -124,13 +124,13 @@ void Player::initAbilityParams(int id, char c, Player *other) {
         int y, x;
         cin >> y >> x;
         FirewallAbility* f = dynamic_cast<FirewallAbility*>(abilities[id - 1]);
-        f->setCell(y, x);
+        f->setCell(y, x, board);
     } else if (c == 'E'){
         int a, b;
         cin >> a >> b;
         Link *link1 = getLinkById(a), *link2 = getLinkById(b);
         Exchange* e = dynamic_cast<Exchange*>(abilities[id - 1]);
-        e->setLinks(link1, link2);
+        e->setLinks(link1, link2, board);
     } else if (c == 'P') {
         char linkID;
         cin >> linkID;
@@ -150,7 +150,7 @@ void Player::initAbilityParams(int id, char c, Player *other) {
         Link* curLink = other->getLinkById(linkID);
         if (c == 'D') {
             Download* e = dynamic_cast<Download*>(abilities[id - 1]);
-            e->setLink(curLink);
+            e->setLink(curLink, board);
         } else if (c == 'S') {
             Scan* e = dynamic_cast<Scan*>(abilities[id - 1]);
             e->setLink(curLink);
@@ -183,7 +183,7 @@ void Player::makeMove(Link * l, Point dir) {
     Point newPos = l->getNewPos(dir, up, right);
     cerr << "DEBUG: new pos obtained " << newPos << '\n';
     if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
-        throw std::invalid_argument("End position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
+        throw std::logic_error("Invalid move: Target position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
     }
     else if (newPos.inDownloadZone(up, right, botLeft)) { //if it reached the end of the board, download to its player
         l->getPlayer()->downloadLink(l);
@@ -230,6 +230,7 @@ void Player::removeLink(Link * l) {
 void Player::useAbility(int abilityId) {
     abilities[abilityId - 1]->useAbility();
     --abilityCount;
+    notifyObservers();
 }
 
 Link * Player::getLinkById(char id) {
