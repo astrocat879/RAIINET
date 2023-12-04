@@ -16,7 +16,10 @@ void Download::setLink(Link *l, Board *b) {
 
 void Download::useAbility() {
     if (used) { // ability has already been used
-        throw invalid_argument{"Error: Ability Download has already been used"};
+        throw invalid_argument{"Error: Ability Download has already been used."};
+    }
+    if (link->getIsDead()) {
+        throw invalid_argument{"Error: Link has already been downloaded."};
     }
     Point p = link->getPoint();
     board->theBoard[p.y][p.x]->detachLink();

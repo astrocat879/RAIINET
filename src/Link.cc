@@ -72,6 +72,15 @@ void Link::flipFrozen() {
     isFrozen = !isFrozen;
 }
 
+void Link::setPoint(int y, int x) {
+    p.y = y;
+    p.x = x;
+}
+
+bool Link::getIsDead() {
+    return isDead;
+}
+
 ostream &operator<<(ostream &out, const Link &l) {
     out << l.id << ": " << l.type << l.strength;
     return out;
