@@ -32,6 +32,8 @@ public:
     void init();                                        // initializes a random layout
     vector<Link*>::iterator getLinkBeginIterator();     // returns the begin() iterator for the links vector
     vector<Link*>::iterator getLinkEndIterator();       // returns the end() iterator for the links vector
+    vector<Ability*>::iterator getAbilityBeginIterator();     // returns the begin() iterator for the abilities vector
+    vector<Ability*>::iterator getAbilityEndIterator();       // returns the end() iterator for the abilities vector
     vector<Link*>::iterator getDownloadBeginIterator();     // returns the begin() iterator for the downloaded vector
     vector<Link*>::iterator getDownloadEndIterator(); 
     void moveLink(Link * l, Point dir);

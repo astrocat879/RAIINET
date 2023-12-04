@@ -1,4 +1,5 @@
 #include "Exchange.h";
+#include "Point.h";
 
 using namespace std;
 
@@ -16,6 +17,7 @@ void Exchange::useAbility() {
     if (used) { // ability has already been used
         throw invalid_argument{"Error: Ability Exchange has already been used"};
     }
-    swap(link1, link2);
+    Point p1 = link1->getPoint(), p2 = link2->getPoint();
+    
     flipUsed(); // current ability has been used
 }
