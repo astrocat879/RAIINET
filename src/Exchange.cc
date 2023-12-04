@@ -1,5 +1,5 @@
-#include "Exchange.h";
-#include "Point.h";
+#include "Exchange.h"
+#include "Point.h"
 
 using namespace std;
 
@@ -8,9 +8,10 @@ Exchange::Exchange(int id, Player *player): Ability(id, player) {
     name = "Exchange";
 }
 
-void Exchange::setLinks(Link *l1, Link *l2) {
+void Exchange::setLinks(Link *l1, Link *l2, Board *b) {
     link1 = l1;
     link2 = l2;
+    board = b;
 }
 
 void Exchange::useAbility() {
