@@ -2,22 +2,34 @@
 #define __TEXTDISPLAY_H__
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
 #include "observer.h"
 
+using namespace std;
+
 class Cell;
+class Player;
 
 class TextDisplay: public Observer {
   std::vector<std::vector<char>> theDisplay;
+  std::vector<std::vector<string>> downloaded;
+  std::vector<std::vector<string>> links;
+  std::vector<int> numOfAbilities;
   const int gridSize;
   int curPlayer;
- public:
-  TextDisplay(int n);
 
-  void changePlayer(int nextPlayer);
-  void notify(Cell &c) override;
+  void printPlayer(ostream &out, int playerID) const;
 
-  ~TextDisplay();
-  friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
+  public:
+    TextDisplay(int n);
+
+    void changePlayer(int nextPlayer);
+    void notify(Cell &c) override;
+    void notify(Player &p) override;
+
+    ~TextDisplay();
+    friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 };
 
 #endif

@@ -20,6 +20,7 @@ class Link{
     bool isDead;
     char type; // D or V
     bool isRevealed;
+    bool isFrozen; // true means it is immobilized, false means its not
     // Board * Board;
     // int playerId;
     Player* player;
@@ -37,11 +38,14 @@ class Link{
         char getId();
         int getStrength();
         bool getReveal();
+        void setDead();
+        bool getIsFrozen();
         Player* getPlayer();
         Point getPoint();
-        Point getNewPos(Point dir);
+        Point getNewPos(Point dir, Point up, Point right);
         void reveal();
-        void move(Point dir);
+        void flipFrozen(); // sets isFrozen to true if link isn't frozen and ability is used, or sets it to false if it is frozen
+        void move(Point dir, Point up, Point right);
         bool battle(Link *other); 
         friend std::ostream &operator<<(std::ostream &out, const Link &l);
 };

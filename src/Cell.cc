@@ -27,24 +27,26 @@ void Cell::attachLink(Link *l) {
   */
   // cerr << "DEBUG: Atttaching link\n";
   if (link != nullptr) { //if a cell is occupied, the links must fight
-    // cerr << "DEBUG: Battle starts\n";
+    
     if (l->getPlayer()->getId() == link->getPlayer()->getId()) {
       cerr << *link << '\n';
       throw logic_error("Moving link onto another link owned by player");
     }
+    cerr << "DEBUG: Battle starts\n";
     if (l->battle(link)) { //if incoming beats current, incoming's player downloads current
-      // cerr << "DEBUG: win\n";
+      cerr << "DEBUG: win\n";
       l->getPlayer()->downloadLink(link);
       link = l;
     }
     else { //if current beats incoming, current's player downloads incoming
-      // cerr << "DEBUG: loss\n";
+      cerr << "DEBUG: loss\n";
       link->getPlayer()->downloadLink(l);
     } 
   }
   else {
     link = l;
   }
+  cerr << "DEBUG: finish attachlink\n";
   notifyObservers();
 }
 

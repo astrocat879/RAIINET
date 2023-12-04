@@ -9,12 +9,20 @@ class Player;
 
 class Ability
 {
-    int id;
-    bool used;
-    string name;
-    Player * player;
+    protected:
+        int id;
+        bool used;
+        string name;
+        Player * player;
 
-public:
-    virtual void useAbility() = 0;
+    public:
+        Ability(int id, Player *player);
+        virtual ~Ability();
+        int getId();
+        bool getUsed();
+        string getName();
+        void flipUsed();
+        void displayAbility();
+        virtual void useAbility() = 0;
 };
 #endif
