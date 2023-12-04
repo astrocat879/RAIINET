@@ -57,6 +57,8 @@ void TextDisplay::notify(Player &p) {
     stringstream ss;
     ss << *(*l);
     links[p.getId()][index] = ss.str();
+    if ((*(*l)).getReveal()) cerr << "DEBUG: player notify cur link is revealed: true";
+    else cerr << "DEBUG: player notify cur link is revealed: false";
     isLinkRevealed[p.getId()][index] = (*(*l)).getReveal();
     ++index;
   }
