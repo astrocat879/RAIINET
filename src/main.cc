@@ -13,8 +13,8 @@ int main(int argc, const char* argv[]){
     // init board
     Board board{};
     cout << "DEBUG: Board made" << '\n';
-    board.addPlayer(new Player{0});
-    board.addPlayer(new Player{1});
+    board.addPlayer(new Player{0, &board});
+    board.addPlayer(new Player{1, &board});
     cout << "DEBUG: Added players" << '\n';
     cout << "DEBUG: Finished init" << '\n';
     // process cmd arguments
@@ -75,54 +75,47 @@ int main(int argc, const char* argv[]){
 
     cout << "DEBUG: Processed default arguemnts" << '\n';
     while (cin >> cmd) {
-        Player* curPlayer = board.getPlayer(board.getCurPlayer());
-        if (cmd == "move") {            // move a piece given the ID of the link and the direction
-            char linkID;
-            string dir;
-            cin >> linkID >> dir;
-            Link* curLink = curPlayer->getLinkById(linkID);
-            if (curLink->getIsFrozen()) {
-                // throw invalid_argument{"Error: Link is current immobilized, please choose another link to move"};
-                cerr << "Error: Link is current immobilized, please choose another link to move" << endl;
-            } else {
+        try {
+            Player* curPlayer = board.getPlayer(board.getCurPlayer());
+            if (cmd == "move") {            // move a piece given the ID of the link and the direction
+                char linkID;
+                string dir;
+                cin >> linkID >> dir;
+                Link* curLink = curPlayer->getLinkById(linkID);
                 Point oldPos = curLink->getPoint();
-                curPlayer->moveLink(curLink, Point::translate(dir));
-                board.moveLink(curLink, oldPos, curLink->getPoint());
-                for (auto l = curPlayer->getLinkBeginIterator(); l != curPlayer->getLinkEndIterator(); ++l) {
-                    if ((*l)->getIsFrozen()) { // move has been made, if link is immobilized then it should no longer be immobilized
-                        (*l)->flipFrozen();
+                if (curLink->getIsFrozen()) {
+                    // throw invalid_argument{"Error: Link is current immobilized, please choose another link to move"};
+                    cerr << "Error: Link is current immobilized, please choose another link to move" << endl;
+                } else {
+                    curPlayer->makeMove(curLink, Point::translate(dir));
+                    for (auto l = curPlayer->getLinkBeginIterator(); l != curPlayer->getLinkEndIterator(); ++l) {
+                        if ((*l)->getIsFrozen()) { // move has been made, if link is immobilized then it should no longer be immobilized
+                            (*l)->flipFrozen();
+                        }
                     }
+                    board.switchTurns();
                 }
-                board.switchTurns();
-            }
-        } 
-        else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
-            cout << "List of Abilities for Player " << (curPlayer->getId() + 1) << ": " << endl;
-            for (auto a = curPlayer->getAbilityBeginIterator(); a != curPlayer->getAbilityEndIterator(); ++a) {
-                (*a)->displayAbility();
-            }
-        }
-        else if (cmd == "ability") {    // use ability with ID n
-            int n;
-            cin >> n;
-            string abilityName = curPlayer->getAbility(n)->getName();
-            if (curPlayer->getId() == 0){
-                curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(1));
-            } else {
-                curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(0));
-            }
-            curPlayer->useAbility(n);
-            cout << "Player " << (curPlayer->getId() + 1) << " used ability ";
-            cout << abilityName << "!" << endl;
-        }
-        else if (cmd == "board") {      // display the board
-            cout << board;
-        }
-        else if (cmd == "sequence") {   // execute sequence of cmds found in a file
-            
-        }
-        else if (cmd == "quit") {       // exit game
+                
+            } 
+            else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
 
+            }
+            else if (cmd == "ability") {    // use ability with ID n
+                int n;
+                cin >> n;
+                // TO DO: lock players out of using this after using this once
+            }
+            else if (cmd == "board") {      // display the board
+                cout << board;
+            }
+            else if (cmd == "sequence") {   // execute sequence of cmds found in a file
+                
+            }
+            else if (cmd == "quit") {       // exit game
+
+            }
+        } catch (exception &e){
+            cerr << e.what() << '\n';
         }
         board.isWon();
     }

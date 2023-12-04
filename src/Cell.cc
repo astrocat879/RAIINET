@@ -25,8 +25,13 @@ void Cell::attachLink(Link *l) {
       If this cell already contains link (which can only be enemy link), battle:
         if incoming link wins, put incoming link in the cell and current enemy link is put into incomingLink.getPlayer.downloadLink(currentLink)
   */
-  cerr << "DEBUG: Atttaching link\n";
+  // cerr << "DEBUG: Atttaching link\n";
   if (link != nullptr) { //if a cell is occupied, the links must fight
+    
+    if (l->getPlayer()->getId() == link->getPlayer()->getId()) {
+      cerr << *link << '\n';
+      throw logic_error("Moving link onto another link owned by player");
+    }
     cerr << "DEBUG: Battle starts\n";
     if (l->battle(link)) { //if incoming beats current, incoming's player downloads current
       cerr << "DEBUG: win\n";
@@ -41,7 +46,7 @@ void Cell::attachLink(Link *l) {
   else {
     link = l;
   }
-
+  cerr << "DEBUG: finish attachlink\n";
   notifyObservers();
 }
 

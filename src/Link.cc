@@ -3,7 +3,7 @@
 #include "Player.h"
 using namespace std;
 
-Link::Link(char id, Point p, char type, int strength, Player * player) : id{id}, p{p}, type{type}, strength{strength}, isRevealed{false}, player{player}, steps{1} {}
+Link::Link(char id, Point p, Point up, Point right, char type, int strength, Player * player): id{id}, p{p}, up{up}, right{right}, type{type}, strength{strength}, isRevealed{false}, player{player}, steps{1} {}
 
 Link::~Link() {}
 
@@ -34,6 +34,10 @@ Point Link::getNewPos(Point dir, Point up, Point right) {
 
 bool Link::getReveal() {
     return isRevealed;
+}
+
+void Link::setDead() {
+    isDead = true;
 }
 
 bool Link::getIsFrozen() {

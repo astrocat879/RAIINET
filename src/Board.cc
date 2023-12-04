@@ -70,6 +70,10 @@ void Board::addPlayer(Player* p) {
   playerOut.push_back(false);
 }
 
+Cell * Board::getCell(Point p){
+  return theBoard[p.y][p.x];
+}
+
 void Board::initPlayer(Player * p, string s) {
   p->init(s);
 }
@@ -111,20 +115,20 @@ int Board::isWon() {
   return -1;
 }
 
-void Board::moveLink(Link *l, Point oldP, Point newP) { // needs to use Points (TO DO)
-  /*
-  checks if in bounds and if new cell doesn't contain ally link
-  if it goes past other side of board, remove from cell and download (see below for how to download)
-  Board.moveLink() calls:
-    Cell.detachLink() for the old cell
-    Cell.attachLink(Link* l) for the new cell
+// void Board::moveLink(Link *l, Point oldP, Point newP) { // needs to use Points (TO DO)
+//   /*
+//   checks if in bounds and if new cell doesn't contain ally link
+//   if it goes past other side of board, remove from cell and download (see below for how to download)
+//   Board.moveLink() calls:
+//     Cell.detachLink() for the old cell
+//     Cell.attachLink(Link* l) for the new cell
 
-  NOTE: that when downloading a link, you need to remove it from the other player with Player.removeLink(Link* l)
-  */
-  cerr << "DEBUG: " << newP << " MOVE link\n";
-  theBoard[oldP.y][oldP.x]->detachLink();
-  theBoard[newP.y][newP.x]->attachLink(l);
-}
+//   NOTE: that when downloading a link, you need to remove it from the other player with Player.removeLink(Link* l)
+//   */
+//   cerr << "DEBUG: " << newP << " MOVE link\n";
+//   theBoard[newP.y][newP.x]->attachLink(l);
+//   theBoard[oldP.y][oldP.x]->detachLink();
+// }
 
 ostream &operator<<(ostream &out, const Board &g) {
   out << *g.td;

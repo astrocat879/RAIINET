@@ -13,8 +13,11 @@ class Exchange;
 class Link{
     char id;
     Point p;
+    Point up;
+    Point right;
     int strength;
     int steps;
+    bool isDead;
     char type; // D or V
     bool isRevealed;
     bool isFrozen; // true means it is immobilized, false means its not
@@ -29,12 +32,13 @@ class Link{
         friend class LinkBoost;
         friend class Polarize;
         friend class Exchange;
-        Link(char id, Point p, char type, int strength, Player * player);
+        Link(char id, Point p, Point up, Point right, char type, int strength, Player * player);
         ~Link();
         char getType();
         char getId();
         int getStrength();
         bool getReveal();
+        void setDead();
         bool getIsFrozen();
         Player* getPlayer();
         Point getPoint();

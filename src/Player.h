@@ -11,6 +11,7 @@
 using namespace std;
 
 class Link;
+class Board;
 
 class Player
 {
@@ -23,10 +24,10 @@ class Player
     vector<Ability *> abilities;
     vector<Link *> links;
     vector<Link *> downloaded;
-    // Board * board;
+    Board * board;
 
 public:
-    Player(int id);
+    Player(int id, Board * board);
     ~Player();
     void init(string layout);                           // initializes the player's setup, given a layout
     void init();                                        // initializes a random layout
@@ -36,7 +37,7 @@ public:
     vector<Ability*>::iterator getAbilityEndIterator();       // returns the end() iterator for the abilities vector
     vector<Link*>::iterator getDownloadBeginIterator();     // returns the begin() iterator for the downloaded vector
     vector<Link*>::iterator getDownloadEndIterator(); 
-    void moveLink(Link * l, Point dir);
+    void makeMove(Link * l, Point dir);
     void downloadLink(Link * l);
     int getDownloadCount();
     int getVirusCount();

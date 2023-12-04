@@ -21,11 +21,13 @@ struct Point{
     bool outOfBounds(Point up, Point right, Point botLeft) {
         // TO DO: also doesn't work for players 3 and 4
         //          they have their x and y swapped essentially
-        int y = botLeft.y * up.y;
-        int x = botLeft.x * right.x;
-        if (x < botLeft.x * right.x || 
-            x > (7-botLeft.x)*right.x || 
-            y < botLeft.y * up.y) {
+        int cy = y * up.y;
+        int cx = x * right.x;
+        // cout << botLeft << up << right;
+        // cout << y << ' ' << x;
+        if (cx < botLeft.x * right.x || 
+            cx > (7-botLeft.x)*right.x || 
+            cy < botLeft.y * up.y) {
             return true;
         }
         return false;
@@ -34,9 +36,9 @@ struct Point{
     bool inDownloadZone(Point up, Point right, Point botLeft){
         // TO DO: also doesn't work for players 3 and 4
         //          they have their x and y swapped essentially
-        int y = botLeft.y * up.y;
-        int x = botLeft.x * right.x;
-        if (y > (7-botLeft.y) * up.y) {
+        int cy = y * up.y;
+        int cx = x * right.x;
+        if (cy > (7-botLeft.y) * up.y) {
             return true;
         }
         return false;
