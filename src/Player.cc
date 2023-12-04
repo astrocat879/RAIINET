@@ -212,7 +212,9 @@ void Player::downloadLink(Link * l) {
         downloadCount ++;
     }
     downloaded.push_back(l);
-    l->getPlayer()->removeLink(l);
+    // l->getPlayer()->removeLink(l);
+    cerr << "DEBUG: set dead\n"; 
+    l->setDead();
     notifyObservers();
     cerr << "DEBUG: Finished downloading link\n";
 }

@@ -51,6 +51,7 @@ void TextDisplay::notify(Player &p) {
     ++index;
   }
   numOfAbilities[p.getId()] = p.getAbilityCount();
+  index = 0;
   for (auto l = p.getLinkBeginIterator(); l != p.getLinkEndIterator(); ++l) {
     cerr << "DEBUG: player notify cur link: " << *(*l) << endl;
     stringstream ss;
