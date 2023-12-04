@@ -2,7 +2,7 @@
 #include "Board.h"
 using namespace std;
 
-Board::Board(): playerCnt{2}, td{nullptr} {}
+Board::Board(): playerCnt{2}, td{nullptr}, usedAbility{false} {}
 
 Board::~Board() {
   delete td;
@@ -18,7 +18,7 @@ Board::~Board() {
 
 void Board::init(bool graphics) {
   td = new TextDisplay(boardSize);
-  if (graphics){ 
+  if (graphics) { 
     gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
     gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
   }
@@ -113,9 +113,29 @@ int Board::getCurPlayer() {
   return curPlayer;
 }
 
+bool Board::getUsedAbility() {
+  return usedAbility;
+}
+
+void Board::flipUsedAbility() {
+  usedAbility = true;
+}
+
 void Board::switchTurns() {
   curPlayer = (curPlayer+1)%playerCnt;
+  usedAbility = false;
   td->changePlayer(curPlayer);
+}
+
+void Board::addFirewall(Point p, Player* player) {
+  Firewall *fw = new Firewall(p.y, p.x, player);
+  fw->addObserver(td);
+  for (auto gg : gd) {
+    fw->addObserver(gg);
+  }
+  delete theBoard[p.y][p.y];
+  theBoard[p.y][p.x] = fw;
+  theBoard[p.y][p.x]->notifyObservers();
 }
 
 int Board::isWon() {

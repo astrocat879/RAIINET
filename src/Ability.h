@@ -10,6 +10,7 @@ class Player;
 class Ability
 {
     protected:
+        const int boardSize = 8;
         int id;
         bool used;
         string name;

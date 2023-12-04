@@ -30,7 +30,7 @@ void Cell::attachLink(Link *l) {
     
     if (l->getPlayer()->getId() == link->getPlayer()->getId()) {
       cerr << *link << '\n';
-      throw logic_error("Invalid move: Target position (" + to_string(p.y) + "," + std::to_string(p.x) + ") contains another link (id: " + link->getId() + ") owned by same player");
+      throw logic_error("Error: Target position (" + to_string(p.y) + "," + std::to_string(p.x) + ") contains another link (id: " + link->getId() + ") owned by same player");
     }
     cerr << "DEBUG: Battle starts\n";
     if (l->battle(link)) { //if incoming beats current, incoming's player downloads current
@@ -55,6 +55,7 @@ void Cell::addObserver(Observer * o) {
 }
 
 void Cell::notifyObservers(){
+  cerr << "DEBUG: entered Cell.notifyObservers\n";
   for (Observer * o: observers) {
     o->notify(*this);
   }
