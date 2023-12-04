@@ -89,7 +89,6 @@ int main(int argc, const char* argv[]){
                 Point oldPos = curLink->getPoint();
                 if (curLink->getIsFrozen()) {
                     throw invalid_argument{"Error: Link is currently immobilized. Please choose another link to move."};
-                    // cerr << "Error: Link is current immobilized, please choose another link to move" << endl;
                 } else {
                     curPlayer->makeMove(curLink, Point::translate(dir));
                     for (auto l = curPlayer->getLinkBeginIterator(); l != curPlayer->getLinkEndIterator(); ++l) {
@@ -99,7 +98,7 @@ int main(int argc, const char* argv[]){
                     }
                     board.switchTurns();
                 }
-                
+                cout << board;
             } 
             else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
                 cout << "List of Abilities for Player " << (curPlayer->getId() + 1) << ": " << endl;
@@ -123,6 +122,9 @@ int main(int argc, const char* argv[]){
                 cout << "Player " << (curPlayer->getId() + 1) << " used ability ";
                 cout << abilityName << "!" << endl;
                 board.flipUsedAbility();
+                if (curPlayer->getAbility(n)->getId() != 1) {
+                    cout << board;
+                }
             }
             else if (cmd == "board") {      // display the board
                 cout << board;
