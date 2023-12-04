@@ -27,7 +27,7 @@ int main(int argc, const char* argv[]){
         allArgs += arg + " ";
     }
     istringstream iss{allArgs};
-    bool link1, link2, ability1, ability2, graphics;
+    bool link1, link2, ability1, ability2, graphics = false;
     while (iss >> cmd) {
         if (cmd == "-ability1") {
             string abilityList;

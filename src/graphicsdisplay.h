@@ -12,11 +12,15 @@ using namespace std;
 
 class GraphicsDisplay: public Observer {
   Xwindow * theDisplay;
-  std::vector<std::vector<string>> downloaded;
+  std::vector<int> numLinksDownloaded;
+  std::vector<int> numVirusesDownloaded;
   std::vector<std::vector<string>> links;
+  std::vector<std::vector<bool>> isLinkRevealed;
   std::vector<int> numOfAbilities;
   const int gridSize;
   int curPlayer;
+  int curPlayerPos;
+  int opponentPos;
   int cellPx;
  public:
   GraphicsDisplay(int n, Xwindow * w, int curPlayer);

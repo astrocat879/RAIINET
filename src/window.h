@@ -2,7 +2,10 @@
 #define __WINDOW_H__
 #include <X11/Xlib.h>
 #include <iostream>
+#include <vector>
+#include <map>
 #include <string>
+using namespace std;
 
 class Xwindow {
   Display *d;
@@ -10,6 +13,7 @@ class Xwindow {
   int s;
   GC gc;
   unsigned long colours[10];
+  std::map<char, std::vector<std::string>> letters;
 
  public:
   Xwindow(int width=900, int height=500);  // Constructor; displays the window.
@@ -31,6 +35,11 @@ class Xwindow {
 
   // Draw a character with some offset
   void drawPiece(int x, int y, char a);
+
+  // Draws a character
+  void drawChar(int x, int y, char c, int sz, int colour=White);
+
+  void drawText(int x, int y, string s, int sz = 18);
 };
 
 #endif

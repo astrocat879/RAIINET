@@ -2,7 +2,7 @@
 #include "Board.h"
 using namespace std;
 
-Board::Board(): playerCnt{2}, td{nullptr} {}
+Board::Board(): playerCnt{2}, td{nullptr}, boardSize{8}{}
 
 Board::~Board() {
   delete td;
