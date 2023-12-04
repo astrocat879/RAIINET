@@ -126,9 +126,10 @@ void Player::initAbilityParams(int id, char c, Player *other) {
         FirewallAbility* f = dynamic_cast<FirewallAbility*>(abilities[id - 1]);
         f->setCell(y, x, board);
     } else if (c == 'E'){
-        int a, b;
+        char a, b;
         cin >> a >> b;
         Link *link1 = getLinkById(a), *link2 = getLinkById(b);
+        cout << "DEBUG: LINKS GOTTEN" << endl;
         Exchange* e = dynamic_cast<Exchange*>(abilities[id - 1]);
         e->setLinks(link1, link2, board);
     } else if (c == 'P') {
@@ -239,6 +240,8 @@ Link * Player::getLinkById(char id) {
             return l;
         }
     }
+    throw invalid_argument{"Error: Incorrect Link"};
+    return nullptr;
 }
 
 Ability * Player::getAbility(int id) {

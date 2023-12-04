@@ -40,11 +40,13 @@ class Link{
         bool getReveal();
         void setDead();
         bool getIsFrozen();
+        bool getIsDead();
         Player* getPlayer();
         Point getPoint();
         Point getNewPos(Point dir, Point up, Point right);
         void reveal();
         void flipFrozen(); // sets isFrozen to true if link isn't frozen and ability is used, or sets it to false if it is frozen
+        void setPoint(int y, int x);
         void move(Point dir, Point up, Point right);
         bool battle(Link *other); 
         friend std::ostream &operator<<(std::ostream &out, const Link &l);

@@ -13,6 +13,7 @@
 class Link;
 class Download;
 class FirewallAbility;
+class Exchange;
 
 class Board
 {
@@ -28,6 +29,7 @@ class Board
 
 public:
     friend class Download;
+    friend class Exchange;
     friend class FirewallAbility;
     Board();
     ~Board();
