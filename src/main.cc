@@ -81,10 +81,20 @@ int main(int argc, const char* argv[]){
             string dir;
             cin >> linkID >> dir;
             Link* curLink = curPlayer->getLinkById(linkID);
-            Point oldPos = curLink->getPoint();
-            curPlayer->moveLink(curLink, Point::translate(dir));
-            board.moveLink(curLink, oldPos, curLink->getPoint());
-            board.switchTurns();
+            if (curLink->getIsFrozen()) {
+                // throw invalid_argument{"Error: Link is current immobilized, please choose another link to move"};
+                cerr << "Error: Link is current immobilized, please choose another link to move" << endl;
+            } else {
+                Point oldPos = curLink->getPoint();
+                curPlayer->moveLink(curLink, Point::translate(dir));
+                board.moveLink(curLink, oldPos, curLink->getPoint());
+                for (auto l = curPlayer->getLinkBeginIterator(); l != curPlayer->getLinkEndIterator(); ++l) {
+                    if ((*l)->getIsFrozen()) { // move has been made, if link is immobilized then it should no longer be immobilized
+                        (*l)->flipFrozen();
+                    }
+                }
+                board.switchTurns();
+            }
         } 
         else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
             cout << "List of Abilities for Player " << (curPlayer->getId() + 1) << ": " << endl;

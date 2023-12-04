@@ -88,6 +88,7 @@ void TextDisplay::printPlayer(ostream &out, int playerID) const {
     for (int i=4; i<8; i++) {
       if (playerID == curPlayer) out << links[playerID][i] << ' ';
       else {
+        
         string output = links[playerID][i].substr(0, 2)+" ?";
         out << output << ' ';
       }

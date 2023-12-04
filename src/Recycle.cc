@@ -12,7 +12,7 @@ void Recycle::setAbility(Ability *a) {
 }
 
 void Recycle::useAbility() {
-    if (!used) { // ability has already been used
+    if (used) { // ability has already been used
         throw invalid_argument{"Error: Ability Recycle has already been used"};
     }
     if (!ability->getUsed()) {

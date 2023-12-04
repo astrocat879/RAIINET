@@ -36,6 +36,10 @@ bool Link::getReveal() {
     return isRevealed;
 }
 
+bool Link::getIsFrozen() {
+    return isFrozen;
+}
+
 void Link::move(Point dir, Point up, Point right) {
     p = getNewPos(dir, up, right);
 }
@@ -58,6 +62,10 @@ void Link::addStep() {
 
 void Link::setType(char c) {
     type = c;
+}
+
+void Link::flipFrozen() {
+    isFrozen = !isFrozen;
 }
 
 ostream &operator<<(ostream &out, const Link &l) {

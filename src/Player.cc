@@ -104,9 +104,9 @@ void Player::initAbility(string abilityList) {
         } else if (abilityList[i] == 'R') {
             abilities.push_back(new Recycle{i+1, this});
         } else if (abilityList[i] == 'E') {
-            
+            abilities.push_back(new Exchange(i+1, this));
         } else if (abilityList[i] == 'I') {
-            
+            abilities.push_back(new Immobilize(i+1, this));
         } else {
             throw logic_error{"Error: Not a valid ability"};
         }
@@ -130,18 +130,25 @@ void Player::initAbilityParams(int id, char c, Player *other) {
         Link *link1 = getLinkById(a), *link2 = getLinkById(b);
         Exchange* e = dynamic_cast<Exchange*>(abilities[id - 1]);
         e->setLinks(link1, link2);
-    } else {
+    } else if (c == 'P') {
+        char linkID;
+        cin >> linkID;
+        Link *curLink = getLinkById(linkID);
+        Polarize* e = dynamic_cast<Polarize*>(abilities[id - 1]);
+        e->setLink(curLink);
+    } else if (c == 'L') {
+        char linkID;
+        cin >> linkID;
+        Link *curLink = getLinkById(linkID);
+        LinkBoost* e = dynamic_cast<LinkBoost*>(abilities[id - 1]);
+        e->setLink(curLink);
+    }
+    else {
         char linkID;
         cin >> linkID;
         Link* curLink = other->getLinkById(linkID);
-        if (c == 'L') {
-            LinkBoost* e = dynamic_cast<LinkBoost*>(abilities[id - 1]);
-            e->setLink(curLink);
-        } else if (c == 'D') {
+        if (c == 'D') {
             Download* e = dynamic_cast<Download*>(abilities[id - 1]);
-            e->setLink(curLink);
-        } else if (c == 'P') {
-            Polarize* e = dynamic_cast<Polarize*>(abilities[id - 1]);
             e->setLink(curLink);
         } else if (c == 'S') {
             Scan* e = dynamic_cast<Scan*>(abilities[id - 1]);
