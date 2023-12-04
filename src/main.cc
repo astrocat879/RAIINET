@@ -77,18 +77,19 @@ int main(int argc, const char* argv[]){
     board.init(graphics);
 
     cout << "DEBUG: Processed default arguemnts" << '\n';
+
     while (cin >> cmd) {
         try {
             Player* curPlayer = board.getPlayer(board.getCurPlayer());
-            if (cmd == "move") {            // move a piece given the ID of the link and the direction
+            if (cmd == "move") { // move a piece given the ID of the link and the direction
                 char linkID;
                 string dir;
                 cin >> linkID >> dir;
                 Link* curLink = curPlayer->getLinkById(linkID);
                 Point oldPos = curLink->getPoint();
                 if (curLink->getIsFrozen()) {
-                    // throw invalid_argument{"Error: Link is current immobilized, please choose another link to move"};
-                    cerr << "Error: Link is current immobilized, please choose another link to move" << endl;
+                    throw invalid_argument{"Error: Link is currently immobilized. Please choose another link to move."};
+                    // cerr << "Error: Link is current immobilized, please choose another link to move" << endl;
                 } else {
                     curPlayer->makeMove(curLink, Point::translate(dir));
                     for (auto l = curPlayer->getLinkBeginIterator(); l != curPlayer->getLinkEndIterator(); ++l) {
@@ -107,6 +108,9 @@ int main(int argc, const char* argv[]){
                 }
             }
             else if (cmd == "ability") {    // use ability with ID n
+                if (board.getUsedAbility()) {
+                    throw invalid_argument("Error: An ability has already been used this turn.");
+                }
                 int n;
                 cin >> n;
                 string abilityName = curPlayer->getAbility(n)->getName();
@@ -118,6 +122,7 @@ int main(int argc, const char* argv[]){
                 curPlayer->useAbility(n);
                 cout << "Player " << (curPlayer->getId() + 1) << " used ability ";
                 cout << abilityName << "!" << endl;
+                board.flipUsedAbility();
             }
             else if (cmd == "board") {      // display the board
                 cout << board;
@@ -131,6 +136,10 @@ int main(int argc, const char* argv[]){
         } catch (exception &e){
             cerr << e.what() << '\n';
         }
-        board.isWon();
+        int winner = board.isWon();
+        if (winner != -1) {
+            cout << "Player " << to_string(winner+1) << " wins!" << endl;
+            break;
+        }
     }
 }

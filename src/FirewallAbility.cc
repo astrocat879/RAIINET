@@ -3,23 +3,31 @@
 
 using namespace std;
 
-FirewallAbility::FirewallAbility(int id, Player *player): 
+FirewallAbility::FirewallAbility(int id, Player* player): 
     Ability(id, player) {
         used = false;
         name = "Firewall";
     }
 
 void FirewallAbility::setCell(int y, int x, Board *b) {
-    c = new Cell{y, x};
+    if (x>boardSize || y>boardSize) {
+        throw invalid_argument{"Error: Target position (" + to_string(p.y) + "," + std::to_string(p.x) + ") is out of bounds."};
+    }
+    p = {y, x};
     board = b;
 }
 
 void FirewallAbility::useAbility() {
+    cerr << "DEBUG: entered FirewallAbility.useAbility()\n";
     if (used) { // ability has already been used
-        throw invalid_argument{"Error: Ability Firewall has already been used"};
+        throw invalid_argument{"Error: Ability Firewall has already been used."};
     }
-    Firewall *fw = new Firewall(c->getY(), c->getX(), player);
-    delete board->theBoard[c->getY()][c->getX()];
-    board->theBoard[c->getY()][c->getX()] = fw;
+    if (board->theBoard[p.y][p.x]->getLink() != nullptr) { // target cell has link in it
+        throw logic_error{"Error: Cannot place Firewall on occupied cells."};
+    }
+    if (board->theBoard[p.y][p.x]->getType() != '.') { // target cell is a Firewall or server port
+        throw logic_error{"Error: Cannot place Firewall on Firewalls or Server Ports."};
+    }
+    board->addFirewall(p, player);
     flipUsed(); // ability has been used
 }

@@ -15,6 +15,6 @@ void LinkBoost::useAbility() {
     if (used) { // ability has already been used
         throw invalid_argument{"Error: Ability Link Boost has already been used"};
     }
-    //link->addStep();
+    link->addStep();
     flipUsed(); // ability has been used
 }

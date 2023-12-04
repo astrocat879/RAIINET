@@ -37,7 +37,7 @@ void TextDisplay::notify(Cell &c) {
   int y = c.getY();
   Link * link = c.getLink();
   cerr << "DEBUG: TextDisplay.notify() x: " << x << ", y: " << y << endl;
-  if (link == nullptr) {
+  if (link == nullptr || link->getIsDead()) {
     cerr << "DEBUG: type of cell: " << c.getType() << endl;
     theDisplay[y][x] = c.getType();
   } else {
@@ -72,7 +72,7 @@ void TextDisplay::printPlayer(ostream &out, int playerID) const {
     for (int i=0; i<4; i++) {
       if (playerID == curPlayer || isLinkRevealed[playerID][i]) out << links[playerID][i] << ' ';
       else {
-        string output = links[playerID][i].substr(0, 2)+" ?";
+        string output = links[playerID][i].substr(0, 2)+" ? ";
         out << output << ' ';
       }
     }
@@ -80,7 +80,7 @@ void TextDisplay::printPlayer(ostream &out, int playerID) const {
     for (int i=4; i<8; i++) {
       if (playerID == curPlayer || isLinkRevealed[playerID][i]) out << links[playerID][i] << ' ';
       else {
-        string output = links[playerID][i].substr(0, 2)+" ?";
+        string output = links[playerID][i].substr(0, 2)+" ? ";
         out << output << ' ';
       }
     }

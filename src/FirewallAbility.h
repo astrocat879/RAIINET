@@ -8,7 +8,7 @@
 using namespace std;
 
 class FirewallAbility : public Ability {
-    Cell *c;
+    Point p;
     Board *board;
     
     public:

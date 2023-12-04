@@ -15,9 +15,9 @@ char ServerPort::getType() const {
 void ServerPort::attachLink(Link *l) {
   // don't allow player to download their own links
   if (player->getId() == l->getPlayer()->getId()) {
-    throw logic_error("Invalid move: Target position (" + to_string(p.y) + "," + std::to_string(p.x) + ") is allied server port");
+    throw logic_error("Error: Target position (" + to_string(p.y) + "," + std::to_string(p.x) + ") is allied server port");
   }
-  l->getPlayer()->downloadLink(l);
+  player->downloadLink(l);
 }
 
 void ServerPort::notifyObservers(){
