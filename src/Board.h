@@ -10,6 +10,8 @@
 #include "Player.h"
 
 class Link;
+class Download;
+class FirewallAbility;
 
 class Board
 {
@@ -24,6 +26,8 @@ class Board
     // GraphicsDisplay *gd;                            // The graphics display
 
 public:
+    friend class Download;
+    friend class FirewallAbility;
     Board();
     ~Board();
 

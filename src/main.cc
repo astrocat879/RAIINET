@@ -98,12 +98,23 @@ int main(int argc, const char* argv[]){
                 
             } 
             else if (cmd == "abilities") {  // display ability cards with an indication of whether its been used
-
+                cout << "List of Abilities for Player " << (curPlayer->getId() + 1) << ": " << endl;
+                for (auto a = curPlayer->getAbilityBeginIterator(); a != curPlayer->getAbilityEndIterator(); ++a) {
+                    (*a)->displayAbility();
+                }
             }
             else if (cmd == "ability") {    // use ability with ID n
                 int n;
                 cin >> n;
-                // TO DO: lock players out of using this after using this once
+                string abilityName = curPlayer->getAbility(n)->getName();
+                if (curPlayer->getId() == 0){
+                    curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(1));
+                } else {
+                    curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(0));
+                }
+                curPlayer->useAbility(n);
+                cout << "Player " << (curPlayer->getId() + 1) << " used ability ";
+                cout << abilityName << "!" << endl;
             }
             else if (cmd == "board") {      // display the board
                 cout << board;
