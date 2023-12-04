@@ -6,7 +6,7 @@ using namespace std;
 
 Firewall::Firewall(): Cell() {}
 
-Firewall::Firewall(int x, int y, Player* p): Cell(x, y), player{p} {}
+Firewall::Firewall(int y, int x, Player* p): Cell(y, x), player{p} {}
 
 char Firewall::getType() const {
     int playerID = player->getId();

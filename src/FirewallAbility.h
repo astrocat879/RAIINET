@@ -2,6 +2,7 @@
 #define __FIREWALLABILITY_H__
 #include "Ability.h"
 #include "Cell.h"
+#include "Firewall.h"
 
 using namespace std;
 
@@ -10,7 +11,7 @@ class FirewallAbility : public Ability {
     
     public:
         FirewallAbility(int id, Player *player);
-        void setCell(int x, int y);
+        void setCell(int y, int x);
         void useAbility() override; 
 };
 
