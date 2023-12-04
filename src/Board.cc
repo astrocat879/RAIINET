@@ -16,10 +16,12 @@ Board::~Board() {
   }
 }
 
-void Board::init() {
+void Board::init(bool graphics) {
   td = new TextDisplay(boardSize);
-  gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
-  gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
+  if (graphics){ 
+    gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
+    gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
+  }
   cerr << "DEBUG: Board.init() reached" << endl;
   td = new TextDisplay(boardSize);
   for (Player* p : players) {

@@ -36,7 +36,7 @@ public:
 
     void addPlayer(Player * p);
     int isWon();           // Call to determine if board is in a winning state.
-    void init(); // Sets up board, serverports, cells, textdisplay
+    void init(bool graphics); // Sets up board, serverports, cells, textdisplay
     void initPlayer(Player * p, string s);
     void initPlayer(Player * p);
     Cell * getCell(Point p);

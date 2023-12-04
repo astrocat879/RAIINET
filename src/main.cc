@@ -27,7 +27,7 @@ int main(int argc, const char* argv[]){
         allArgs += arg + " ";
     }
     istringstream iss{allArgs};
-    bool link1, link2, ability1, ability2;
+    bool link1, link2, ability1, ability2, graphics;
     while (iss >> cmd) {
         if (cmd == "-ability1") {
             string abilityList;
@@ -56,7 +56,7 @@ int main(int argc, const char* argv[]){
             board.initPlayer(board.getPlayer(2), layout);
             link2 = true;
         } else if (cmd == "-graphics") {
-
+            graphics = true;
         }
     }
     cout << "DEBUG: Processed Arguments" << '\n';
@@ -74,7 +74,7 @@ int main(int argc, const char* argv[]){
         board.getPlayer(1)->initAbility();
     }
 
-    board.init();
+    board.init(graphics);
 
     cout << "DEBUG: Processed default arguemnts" << '\n';
     while (cin >> cmd) {
