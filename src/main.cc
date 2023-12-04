@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "Player.h"
 #include "Point.h"
+#include "window.h"
 
 using namespace std;
 
@@ -12,6 +13,8 @@ int main(int argc, const char* argv[]){
     string cmd;
     // init board
     Board board{};
+    // Xwindow w{};
+    // TO DO: pass in display window into player and board
     cout << "DEBUG: Board made" << '\n';
     board.addPlayer(new Player{0, &board});
     board.addPlayer(new Player{1, &board});

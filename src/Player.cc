@@ -184,7 +184,7 @@ void Player::makeMove(Link * l, Point dir) {
     Point newPos = l->getNewPos(dir, up, right);
     cerr << "DEBUG: new pos obtained " << newPos << '\n';
     if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
-        throw std::invalid_argument("End position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
+        throw std::logic_error("Invalid move: Target position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
     }
     else if (newPos.inDownloadZone(up, right, botLeft)) { //if it reached the end of the board, download to its player
         l->getPlayer()->downloadLink(l);
@@ -231,6 +231,7 @@ void Player::removeLink(Link * l) {
 void Player::useAbility(int abilityId) {
     abilities[abilityId - 1]->useAbility();
     --abilityCount;
+    notifyObservers();
 }
 
 Link * Player::getLinkById(char id) {

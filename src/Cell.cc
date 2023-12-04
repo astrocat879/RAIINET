@@ -30,7 +30,7 @@ void Cell::attachLink(Link *l) {
     
     if (l->getPlayer()->getId() == link->getPlayer()->getId()) {
       cerr << *link << '\n';
-      throw logic_error("Moving link onto another link owned by player");
+      throw logic_error("Invalid move: Target position (" + to_string(p.y) + "," + std::to_string(p.x) + ") contains another link (id: " + link->getId() + ") owned by same player");
     }
     cerr << "DEBUG: Battle starts\n";
     if (l->battle(link)) { //if incoming beats current, incoming's player downloads current

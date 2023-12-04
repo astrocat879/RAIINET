@@ -13,8 +13,10 @@ class Player;
 
 class TextDisplay: public Observer {
   std::vector<std::vector<char>> theDisplay;
-  std::vector<std::vector<string>> downloaded;
+  std::vector<int> numLinksDownloaded;
+  std::vector<int> numVirusesDownloaded;
   std::vector<std::vector<string>> links;
+  std::vector<std::vector<bool>> isLinkRevealed;
   std::vector<int> numOfAbilities;
   const int gridSize;
   int curPlayer;

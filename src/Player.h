@@ -36,7 +36,7 @@ public:
     vector<Ability*>::iterator getAbilityBeginIterator();     // returns the begin() iterator for the abilities vector
     vector<Ability*>::iterator getAbilityEndIterator();       // returns the end() iterator for the abilities vector
     vector<Link*>::iterator getDownloadBeginIterator();     // returns the begin() iterator for the downloaded vector
-    vector<Link*>::iterator getDownloadEndIterator(); 
+    vector<Link*>::iterator getDownloadEndIterator();       // TO DO: may need to delete if not used
     void makeMove(Link * l, Point dir);
     void downloadLink(Link * l);
     int getDownloadCount();

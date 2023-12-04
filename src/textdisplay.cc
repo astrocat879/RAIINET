@@ -14,12 +14,14 @@ TextDisplay::TextDisplay(int n): gridSize{n}, curPlayer{0} {
   }
 
   for (int i=0; i<4; i++) {
-    downloaded.emplace_back(vector<string>());
     links.emplace_back(vector<string>());
-    for (int j=0; j<gridSize; j++) {
-      downloaded[i].emplace_back(" ");
-      links[i].emplace_back(" ");
+    isLinkRevealed.emplace_back(vector<bool>());
+    for (int j=0; j<8; j++) {
+      links[i].emplace_back("");
+      isLinkRevealed[i].emplace_back(false);
     }
+    numLinksDownloaded.emplace_back(0);
+    numVirusesDownloaded.emplace_back(0);
     numOfAbilities.emplace_back(5);
   }
 }
@@ -45,18 +47,19 @@ void TextDisplay::notify(Cell &c) {
 }
 
 void TextDisplay::notify(Player &p) {
-  int index = 0;
-  for (auto l = p.getDownloadBeginIterator(); l != p.getDownloadEndIterator(); ++l) {
-    downloaded[p.getId()][index] = to_string((*l)->getType())+to_string((*l)->getStrength());
-    ++index;
-  }
+  cerr << "DEBUG: textDisplay.notify's player: " << p.getId() << endl;
+  numLinksDownloaded[p.getId()] = p.getDownloadCount();
+  numVirusesDownloaded[p.getId()] = p.getVirusCount();
   numOfAbilities[p.getId()] = p.getAbilityCount();
-  index = 0;
+  int index = 0;
   for (auto l = p.getLinkBeginIterator(); l != p.getLinkEndIterator(); ++l) {
     cerr << "DEBUG: player notify cur link: " << *(*l) << endl;
     stringstream ss;
     ss << *(*l);
     links[p.getId()][index] = ss.str();
+    if ((*(*l)).getReveal()) cerr << "DEBUG: player notify cur link is revealed: true";
+    else cerr << "DEBUG: player notify cur link is revealed: false";
+    isLinkRevealed[p.getId()][index] = (*(*l)).getReveal();
     ++index;
   }
 }
@@ -64,22 +67,10 @@ void TextDisplay::notify(Player &p) {
 void TextDisplay::printPlayer(ostream &out, int playerID) const {
     // TO DO: make player have an observer so text display can do this
     out << "Player " << (playerID+1) << ":\n";
-    out << "Downloaded:";
-    for (int i=0; i<8; i++) {
-      if (downloaded[playerID][i]!=" ") {
-        if (i == 0) {
-            out << ' ';
-        } else {
-            out << ", ";
-        }
-        out << downloaded[playerID][i];
-      }
-        
-    }
-    out << "\n";
+    out << "Downloaded: " << to_string(numLinksDownloaded[playerID]) << "D, " << to_string(numVirusesDownloaded[playerID]) << "V" << "\n";
     out << "Abilities: " << numOfAbilities[playerID] << "\n";
     for (int i=0; i<4; i++) {
-      if (playerID == curPlayer) out << links[playerID][i] << ' ';
+      if (playerID == curPlayer || isLinkRevealed[playerID][i]) out << links[playerID][i] << ' ';
       else {
         string output = links[playerID][i].substr(0, 2)+" ?";
         out << output << ' ';
@@ -87,9 +78,8 @@ void TextDisplay::printPlayer(ostream &out, int playerID) const {
     }
     out << '\n';
     for (int i=4; i<8; i++) {
-      if (playerID == curPlayer) out << links[playerID][i] << ' ';
+      if (playerID == curPlayer || isLinkRevealed[playerID][i]) out << links[playerID][i] << ' ';
       else {
-        
         string output = links[playerID][i].substr(0, 2)+" ?";
         out << output << ' ';
       }
