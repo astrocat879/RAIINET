@@ -230,6 +230,7 @@ void Player::removeLink(Link * l) {
 void Player::useAbility(int abilityId) {
     abilities[abilityId - 1]->useAbility();
     --abilityCount;
+    notifyObservers();
 }
 
 Link * Player::getLinkById(char id) {

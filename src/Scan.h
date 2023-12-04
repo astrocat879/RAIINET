@@ -2,6 +2,7 @@
 #define __SCAN_H__
 #include "Ability.h"
 #include "Link.h"
+#include "Player.h"
 
 using namespace std;
 

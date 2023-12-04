@@ -16,5 +16,6 @@ void Scan::useAbility() {
         throw invalid_argument{"Error: Ability Scan has already been used"};
     }
     link->reveal();
+    link->getPlayer()->notifyObservers();
     flipUsed(); // ability has been used
 }
