@@ -6,7 +6,8 @@
 #include "ServerPort.h"
 #include "Firewall.h"
 #include "textdisplay.h"
-// #include "graphicsdisplay.h"
+#include "window.h"
+#include "graphicsdisplay.h"
 #include "Player.h"
 
 class Link;
@@ -23,7 +24,7 @@ class Board
     int playersOutCnt;
     const int boardSize = 8;                        // Size of the board
     TextDisplay *td;                                // The text display
-    // GraphicsDisplay *gd;                            // The graphics display
+    vector<GraphicsDisplay *>gd;                            // The graphics display
 
 public:
     friend class Download;

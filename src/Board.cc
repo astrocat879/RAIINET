@@ -17,11 +17,17 @@ Board::~Board() {
 }
 
 void Board::init() {
+  td = new TextDisplay(boardSize);
+  gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
+  gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
   cerr << "DEBUG: Board.init() reached" << endl;
   td = new TextDisplay(boardSize);
   for (Player* p : players) {
     cerr << "DEBUG: Board.init() player " << to_string(p->getId()) << endl;
     p->addObserver(td);
+    for (auto gg : gd) {
+      p->addObserver(gg);
+    }
     p->notifyObservers();
   }
 
@@ -31,6 +37,9 @@ void Board::init() {
     for (int j=0; j<boardSize; j++) {
       theBoard[i][j] = new Cell(i, j);
       theBoard[i][j]->addObserver(td);
+      for (auto gg : gd) {
+        theBoard[i][j]->addObserver(gg);
+      }
     }
   }
 
@@ -38,22 +47,34 @@ void Board::init() {
   delete theBoard[0][3];
   theBoard[0][3] = new ServerPort(0, 3, players[0]);
   theBoard[0][3]->addObserver(td);
+  for (auto gg : gd) {
+    theBoard[0][3]->addObserver(gg);
+  }
   theBoard[0][3]->notifyObservers();
 
   delete theBoard[0][4];
   theBoard[0][4] = new ServerPort(0, 4, players[0]);
   theBoard[0][4]->addObserver(td);
+  for (auto gg : gd) {
+    theBoard[0][4]->addObserver(gg);
+  }
   theBoard[0][4]->notifyObservers();
 
   delete theBoard[7][3];
   theBoard[7][3] = new ServerPort(7, 3, players[1]);
   theBoard[7][3]->addObserver(td);
+  for (auto gg : gd) {
+    theBoard[7][3]->addObserver(gg);
+  }
   theBoard[7][3]->notifyObservers();
 
   delete theBoard[7][4];
   theBoard[7][4] = new ServerPort(7, 4, players[1]);
   cout << "DEBUG: VERY IMPORTANT " << theBoard[7][4]->getType() << '\n';
   theBoard[7][4]->addObserver(td);
+  for (auto gg : gd) {
+    theBoard[7][4]->addObserver(gg);
+  }
   theBoard[7][4]->notifyObservers();
 
   // put links on the board
