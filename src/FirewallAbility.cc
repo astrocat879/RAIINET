@@ -9,14 +9,15 @@ FirewallAbility::FirewallAbility(int id, Player *player):
         name = "Firewall";
     }
 
-void FirewallAbility::setCell(int x, int y) {
-    c = new Cell{x, y};
+void FirewallAbility::setCell(int y, int x) {
+    c = new Cell{y, x};
 }
 
 void FirewallAbility::useAbility() {
     if (used) { // ability has already been used
         throw invalid_argument{"Error: Ability Firewall has already been used"};
     }
-    
+    Firewall *fw = new Firewall(c->getY(), c->getX(), player);
+
     flipUsed(); // ability has been used
 }

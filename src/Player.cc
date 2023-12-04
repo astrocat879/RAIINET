@@ -92,11 +92,11 @@ void Player::initAbility(string abilityList) {
             throw logic_error{"Error: Cannot have more than 2 of the same ability in one hand."};
         }
         if (abilityList[i] == 'L') {
-            abilities.push_back(new LinkBoost{i+1, this});
+            abilities.push_back(new LinkBoost(i+1, this));
         } else if (abilityList[i] == 'F') {
-            
+            abilities.push_back(new FirewallAbility(i+1, this));
         } else if (abilityList[i] == 'D') {
-            abilities.push_back(new Download{i+1, this});
+            abilities.push_back(new Download(i+1, this));
         } else if (abilityList[i] == 'P') {
             abilities.push_back(new Polarize(i+1, this));
         } else if (abilityList[i] == 'S') {
@@ -120,10 +120,10 @@ void Player::initAbilityParams(int id, char c, Player *other) {
         Recycle* r = dynamic_cast<Recycle*>(abilities[id - 1]);
         r->setAbility(abilities[a - 1]);
     } else if (c == 'F') {
-        int x, y;
-        cin >> x >> y;
+        int y, x;
+        cin >> y >> x;
         FirewallAbility* f = dynamic_cast<FirewallAbility*>(abilities[id - 1]);
-        f->setCell(x, y);
+        f->setCell(y, x);
     } else if (c == 'E'){
         int a, b;
         cin >> a >> b;
