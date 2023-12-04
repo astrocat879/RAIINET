@@ -5,6 +5,10 @@
 #include "Point.h"
 
 class Player;
+class LinkBoost;
+class Polarize;
+class Scan;
+class Exchange;
 
 class Link{
     char id;
@@ -12,18 +16,27 @@ class Link{
     Point up;
     Point right;
     int strength;
+    int steps;
+    bool isDead;
     char type; // D or V
     bool isRevealed;
     // Board * Board;
     // int playerId;
     Player* player;
 
+    void addStep(); // allows link to move one step further, used by LinkBoost 
+    void setType(char c); // sets type for the link, used by Polarize
+
     public:
+        friend class LinkBoost;
+        friend class Polarize;
+        friend class Exchange;
         Link(char id, Point p, Point up, Point right, char type, int strength, Player * player);
         ~Link();
         char getType();
         char getId();
         int getStrength();
+        bool getReveal();
         Player* getPlayer();
         Point getPoint();
         Point getNewPos(Point dir);
