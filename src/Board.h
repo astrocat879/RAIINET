@@ -17,15 +17,16 @@ class Exchange;
 
 class Board
 {
-    std::vector<std::vector<Cell *>> theBoard;        // The actual board
-    int playerCnt;                                  // The player count
+    std::vector<std::vector<Cell *>> theBoard;          // The actual board
+    int playerCnt;                                      // The player count
     int curPlayer = 0;
-    vector<Player *> players;                       // Array of players
-    vector<bool> playerOut;                         // Whether each player has won or lost
+    bool usedAbility;                                   // True if the current player has used an ability on current turn
+    vector<Player *> players;                           // Array of players
+    vector<bool> playerOut;                             // Whether each player has won or lost
     int playersOutCnt;
-    const int boardSize = 8;                        // Size of the board
-    TextDisplay *td;                                // The text display
-    vector<GraphicsDisplay *>gd;                            // The graphics display
+    const int boardSize = 8;                            // Size of the board
+    TextDisplay *td;                                    // The text display
+    vector<GraphicsDisplay *>gd;                        // The graphics display
 
 public:
     friend class Download;
@@ -41,8 +42,11 @@ public:
     void initPlayer(Player * p);
     Cell * getCell(Point p);
     int getCurPlayer();
+    bool getUsedAbility();
+    void flipUsedAbility();
     void switchTurns();
     Player * getPlayer(int id);
+    void addFirewall(Point p, Player* player);
     // void moveLink(Link * l, Point oldP, Point newP);
     friend std::ostream &operator<<(std::ostream &out, const Board &g);
 };

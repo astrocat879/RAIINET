@@ -27,15 +27,15 @@ GraphicsDisplay::GraphicsDisplay(int n, Xwindow * w, int curPlayer): gridSize{n}
   }
   // theDisplay->drawText(500, 30, "Player 2");
   if (curPlayer==0) {
-    curPlayerPos = 250;
-    opponentPos = 0;
+    player1Pos = 250;
+    player2Pos = 0;
     
   } else {
-    curPlayerPos = 0;
-    opponentPos = 250;
+    player1Pos = 0;
+    player2Pos = 250;
   }
-  theDisplay->drawText(500, opponentPos + 30, "PLAYER 2:");
-  theDisplay->drawText(500, curPlayerPos + 30, "PLAYER 1:");
+  theDisplay->drawText(500, player2Pos + 30, "PLAYER 2:");
+  theDisplay->drawText(500, player1Pos + 30, "PLAYER 1:");
   theDisplay->drawText(500, 55, "DOWNLOADED:");
   theDisplay->drawText(500, 305, "DOWNLOADED:");
   theDisplay->drawText(500, 80, "ABILITIES:");
@@ -114,34 +114,38 @@ void GraphicsDisplay::notify(Player &p){
   }
   string tmp = to_string(numLinksDownloaded[p.getId()]) + "D  " + to_string(numVirusesDownloaded[p.getId()]) + "V";
   // string tmp = "0";
-  if (curPlayer == p.getId()){
-    theDisplay->drawText(730, curPlayerPos + 55, tmp);
+  if (p.getId() == 0){
+    theDisplay->drawText(730, player1Pos + 55, tmp);
   } else {
-    theDisplay->drawText(730, opponentPos + 55, tmp);
+    theDisplay->drawText(730, player2Pos + 55, tmp);
   }
   
   tmp = to_string(numOfAbilities[p.getId()]);
-  if (curPlayer == p.getId()){
-    theDisplay->drawText(730, curPlayerPos + 80, tmp);
+  if (p.getId() == 0){
+    theDisplay->drawText(730, player1Pos + 80, tmp);
   } else {
-    theDisplay->drawText(730, opponentPos + 80, tmp);
+    theDisplay->drawText(730, player2Pos + 80, tmp);
   }
   // out << "Downloaded: " << to_string(numLinksDownloaded[p.getId()]) << "D, " << to_string(numVirusesDownloaded[p.getId()]) << "V" << "\n";
   // out << "Abilities: " << numOfAbilities[p.getId()] << "\n";
+  int curPos = player1Pos;
+  if (p.getId() == 1) {
+    curPos= player2Pos;
+  }
   for (int i=0; i<4; i++) {
     if (p.getId() == curPlayer || isLinkRevealed[p.getId()][i]) 
-      theDisplay->drawText(505 + i * 80, curPlayerPos+130, links[p.getId()][i], 14);
+      theDisplay->drawText(505 + i * 80, curPos+130, links[p.getId()][i], 14);
     else {
       string output = links[p.getId()][i].substr(0, 2)+" ? ";
-      theDisplay->drawText(505 + i * 80, opponentPos+130, output, 14);
+      theDisplay->drawText(505 + i * 80, curPos+130, output, 14);
     }
   }
   for (int i=4; i<8; i++) {
     if (p.getId() == curPlayer || isLinkRevealed[p.getId()][i]) 
-      theDisplay->drawText(505 + (i-4) * 80, curPlayerPos+150, links[p.getId()][i], 14);
+      theDisplay->drawText(505 + (i-4) * 80, curPos+150, links[p.getId()][i], 14);
     else {
       string output = links[p.getId()][i].substr(0, 2)+" ? ";
-      theDisplay->drawText(505 + (i-4) * 80, opponentPos+150, output, 14);
+      theDisplay->drawText(505 + (i-4) * 80, curPos+150, output, 14);
     }
   }
 }

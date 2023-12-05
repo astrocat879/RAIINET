@@ -19,8 +19,8 @@ class GraphicsDisplay: public Observer {
   std::vector<int> numOfAbilities;
   const int gridSize;
   int curPlayer;
-  int curPlayerPos;
-  int opponentPos;
+  int player1Pos;
+  int player2Pos;
   int cellPx;
  public:
   GraphicsDisplay(int n, Xwindow * w, int curPlayer);

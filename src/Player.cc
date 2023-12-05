@@ -184,10 +184,11 @@ void Player::makeMove(Link * l, Point dir) {
     Point newPos = l->getNewPos(dir, up, right);
     cerr << "DEBUG: new pos obtained " << newPos << '\n';
     if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
-        throw std::logic_error("Invalid move: Target position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
+        throw std::logic_error("Error: Target position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
     }
     else if (newPos.inDownloadZone(up, right, botLeft)) { //if it reached the end of the board, download to its player
         l->getPlayer()->downloadLink(l);
+        board->getCell(oldPos)->detachLink();
         return;
     }
     board->getCell(newPos)->attachLink(l);
@@ -221,7 +222,6 @@ void Player::downloadLink(Link * l) {
 }
 
 void Player::removeLink(Link * l) {
-    // TO DO: fix this
     cerr << "DEBUG: Removing link\n"; 
     l->setDead();
     notifyObservers();
@@ -240,7 +240,7 @@ Link * Player::getLinkById(char id) {
             return l;
         }
     }
-    throw invalid_argument{"Error: Incorrect Link"};
+    throw invalid_argument{"Error: Link belongs to other player"};
     return nullptr;
 }
 

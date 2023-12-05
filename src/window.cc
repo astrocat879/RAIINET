@@ -54,7 +54,7 @@ Xwindow::Xwindow(int width, int height) {
 
   XSynchronize(d,True);
 
-  usleep(1000);
+  usleep(1);
 
   letters['A'] = {
         "  1  ",
@@ -621,6 +621,7 @@ void Xwindow::drawChar(int x, int y, char c, int sz, int colour) {
 }
 
 void Xwindow::drawText(int x, int y, string s, int sz) {
+    fillRectangle(x, y, sz * s.length(), sz, Xwindow::White);
   for (char c : s) {
     drawChar(x, y, c, sz, Xwindow::Black);
     x += sz + 1;

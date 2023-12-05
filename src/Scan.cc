@@ -17,5 +17,6 @@ void Scan::useAbility() {
     }
     link->reveal();
     link->getPlayer()->notifyObservers();
+    
     flipUsed(); // ability has been used
 }
