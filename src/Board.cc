@@ -6,7 +6,10 @@ Board::Board(): playerCnt{2}, td{nullptr}, usedAbility{false}, boardSize{8} {}
 
 Board::~Board() {
   delete td;
-  for (auto &p : players) {
+  for (auto gg : gd) {
+    delete gg;
+  }
+  for (auto p : players) {
     delete p;
   }
   for (int i=0; i<boardSize; i++) {

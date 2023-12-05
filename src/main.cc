@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <istream>
 #include "Board.h"
 #include "Player.h"
 #include "Point.h"
@@ -76,9 +77,21 @@ int main(int argc, const char* argv[]){
 
     board.init(graphics);
 
-    cout << "DEBUG: Processed default arguemnts" << '\n';
+    // cout << "DEBUG: Processed default arguemnts" << '\n';
 
-    while (cin >> cmd) {
+    ifstream fs;
+    istream& inputStream = cin;
+    string fileName;
+    while (true) {
+        if (!(inputStream >> cmd)) {
+            if (&inputStream == &cin) { // if no more cin, break
+                break;
+            }
+            inputStream.rdbuf(cin.rdbuf()); // if no more file, switch back to cin
+            inputStream.clear();
+            continue;
+        }
+        cerr << "DEBUG: "<< cmd << '\n';
         try {
             Player* curPlayer = board.getPlayer(board.getCurPlayer());
             if (cmd == "move") { // move a piece given the ID of the link and the direction
@@ -130,10 +143,18 @@ int main(int argc, const char* argv[]){
                 cout << board;
             }
             else if (cmd == "sequence") {   // execute sequence of cmds found in a file
-                
+                cerr << "DEBUG: seq" << endl;
+                fs.close();
+                fs.clear();
+                cin >> fileName;
+                fs.open(fileName);
+                if (!fs.is_open()) {
+                    throw logic_error("Error: Unable to open file");
+                }
+                inputStream.rdbuf(fs.rdbuf()); // lets inputStream read from fstream
             }
             else if (cmd == "quit") {       // exit game
-
+                return 0;
             }
         } catch (exception &e){
             cerr << e.what() << '\n';
@@ -143,5 +164,6 @@ int main(int argc, const char* argv[]){
             cout << "Player " << to_string(winner+1) << " wins!" << endl;
             break;
         }
+        // free memory
     }
 }

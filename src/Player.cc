@@ -268,7 +268,18 @@ int Player::getId(){
 
 Player::~Player()
 {
-
+    for (auto i : abilities) {
+        if (i != nullptr)
+            delete i;
+    }
+    for (auto i : links) {
+        if (i != nullptr)
+            delete i;
+    }
+    for (auto i : downloaded) {
+        if (i != nullptr)
+            delete i;
+    }
 }
 
 vector<Link*>::iterator Player::getDownloadBeginIterator() {
