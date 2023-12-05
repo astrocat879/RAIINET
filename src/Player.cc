@@ -155,6 +155,8 @@ void Player::initAbilityParams(int id, char c, Player *other) {
         } else if (c == 'S') {
             Scan* e = dynamic_cast<Scan*>(abilities[id - 1]);
             e->setLink(curLink);
+            e->setBoard(board);
+            // board->getCell(curLink->getPoint())->notifyObservers();
         } else if (c == 'I') {
             Immobilize* e = dynamic_cast<Immobilize*>(abilities[id - 1]);
             e->setLink(curLink);
