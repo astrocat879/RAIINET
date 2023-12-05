@@ -624,5 +624,8 @@ void Xwindow::drawText(int x, int y, string s, int sz) {
   for (char c : s) {
     drawChar(x, y, c, sz, Xwindow::Black);
     x += sz + 1;
+    if (c == ' ') { // spaces are too wide
+        x -= sz/2;
+    }
   }
 }

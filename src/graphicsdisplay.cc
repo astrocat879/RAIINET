@@ -130,10 +130,10 @@ void GraphicsDisplay::notify(Player &p){
   // out << "Abilities: " << numOfAbilities[p.getId()] << "\n";
   for (int i=0; i<4; i++) {
     if (p.getId() == curPlayer || isLinkRevealed[p.getId()][i]) 
-      theDisplay->drawText(505 + i * 80, curPlayerPos+130, links[p.getId()][i]);
+      theDisplay->drawText(505 + i * 80, curPlayerPos+130, links[p.getId()][i], 14);
     else {
       string output = links[p.getId()][i].substr(0, 2)+" ? ";
-      theDisplay->drawText(505 + i * 80, opponentPos+130, output);
+      theDisplay->drawText(505 + i * 80, opponentPos+130, output, 14);
     }
   }
   for (int i=4; i<8; i++) {
