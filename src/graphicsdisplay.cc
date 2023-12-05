@@ -225,7 +225,7 @@ void GraphicsDisplay::notify(Player &p) {
   // printing amount of abilities downloaded
   if (numOfAbilities[p.getId()] != p.getAbilityCount()){
     numOfAbilities[p.getId()] = p.getAbilityCount();
-    printNumOfAbilities(g.getId());
+    printNumOfAbilities(p.getId());
   }
   int index = 0;
 
