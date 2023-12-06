@@ -27,8 +27,12 @@ int main(int argc, const char* argv[]){
         string arg = argv[i];
         allArgs += arg + " ";
     }
+
+    // read cmd args
     istringstream iss{allArgs};
-    bool link1 = false, link2 = false, ability1 = false, ability2 = false, graphics = false;
+  
+    bool link1 = false, link2 = false, ability1 = false, ability2 = false;
+    int graphics = 0;
     while (iss >> cmd) {
         if (cmd == "-ability1") {
             string abilityList;
@@ -57,7 +61,9 @@ int main(int argc, const char* argv[]){
             board.initPlayer(board.getPlayer(2), layout);
             link2 = true;
         } else if (cmd == "-graphics") {
-            graphics = true;
+            graphics = 1;
+        } else if (cmd == "-graphicsBonus") {
+            graphics = 2;
         }
     }
     cout << "DEBUG: Processed Arguments" << '\n';

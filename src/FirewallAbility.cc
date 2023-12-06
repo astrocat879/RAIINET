@@ -13,7 +13,7 @@ void FirewallAbility::setCell(int y, int x, Board *b) {
     if (x>boardSize || y>boardSize) {
         throw invalid_argument{"Error: Target position (" + to_string(p.y) + "," + std::to_string(p.x) + ") is out of bounds."};
     }
-    p = {y, x};
+    p = {x, y};
     board = b;
 }
 

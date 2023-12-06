@@ -27,6 +27,7 @@ class Board
     const int boardSize = 8;                            // Size of the board
     TextDisplay *td;                                    // The text display
     vector<GraphicsDisplay *>gd;                        // The graphics display
+    int graphicsMode = 0;                               // Whether there are 0, 1, or 2 windows being displayed
 
 public:
     friend class Download;
@@ -37,7 +38,7 @@ public:
 
     void addPlayer(Player * p);
     int isWon();           // Call to determine if board is in a winning state.
-    void init(bool graphics); // Sets up board, serverports, cells, textdisplay
+    void init(int graphics); // Sets up board, serverports, cells, textdisplay
     void initPlayer(Player * p, string s);
     void initPlayer(Player * p);
     Cell * getCell(Point p);
