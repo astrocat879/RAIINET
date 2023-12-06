@@ -2,19 +2,38 @@
 #include "Board.h"
 using namespace std;
 
-Board::Board(): playerCnt{2}, td{nullptr}, usedAbility{false}, boardSize{8} {}
+Board::Board(): playerCnt{2}, td{nullptr}, usedAbility{false}, boardSize{8}, playersOutCnt{0}, playerOut{vector<bool>(false, false)} {}
 
 Board::~Board() {
-  delete td;
-  for (auto &p : players) {
-    delete p;
-  }
-  for (int i=0; i<boardSize; i++) {
-    for (int j=0; j<boardSize; j++) {
-      delete theBoard[i][j];
+    if (td != nullptr) {
+        delete td;
+        td = nullptr;
     }
-  }
+
+    for (auto gg : gd) {
+        if (gg != nullptr) {
+            delete gg;
+            gg = nullptr;
+        }
+    }
+
+    for (auto p : players) {
+        if (p != nullptr) {
+            delete p;
+            p = nullptr;
+        }
+    }
+
+    for (int i = 0; i < boardSize; i++) {
+        for (int j = 0; j < boardSize; j++) {
+            if (theBoard[i][j] != nullptr) {
+                delete theBoard[i][j];
+                theBoard[i][j] = nullptr;
+            }
+        }
+    }
 }
+
 
 void Board::init(bool graphics) {
   td = new TextDisplay(boardSize);
@@ -23,7 +42,6 @@ void Board::init(bool graphics) {
     gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
   }
   cerr << "DEBUG: Board.init() reached" << endl;
-  td = new TextDisplay(boardSize);
   for (Player* p : players) {
     cerr << "DEBUG: Board.init() player " << to_string(p->getId()) << endl;
     p->addObserver(td);
@@ -133,7 +151,7 @@ void Board::addFirewall(Point p, Player* player) {
   for (auto gg : gd) {
     fw->addObserver(gg);
   }
-  delete theBoard[p.y][p.y];
+  delete theBoard[p.y][p.x];
   theBoard[p.y][p.x] = fw;
   theBoard[p.y][p.x]->notifyObservers();
 }
