@@ -28,7 +28,7 @@ int main(int argc, const char* argv[]){
         allArgs += arg + " ";
     }
     istringstream iss{allArgs};
-    bool link1, link2, ability1, ability2, graphics = false;
+    bool link1 = false, link2 = false, ability1 = false, ability2 = false, graphics = false;
     while (iss >> cmd) {
         if (cmd == "-ability1") {
             string abilityList;
@@ -79,25 +79,26 @@ int main(int argc, const char* argv[]){
 
     // cout << "DEBUG: Processed default arguemnts" << '\n';
 
-    ifstream fs;
-    istream& inputStream = cin;
-    string fileName;
-    while (true) {
-        if (!(inputStream >> cmd)) {
-            if (&inputStream == &cin) { // if no more cin, break
-                break;
-            }
-            inputStream.rdbuf(cin.rdbuf()); // if no more file, switch back to cin
-            inputStream.clear();
-            continue;
+ifstream fs;
+istream* inputStream = &cin;  // Initialize to cin
+string fileName;
+while (true) {
+    (*inputStream) >> cmd;
+    if (inputStream->fail() || inputStream->eof()) {
+        if (inputStream == &cin) { // if no more cin, break
+            break;
         }
+        delete inputStream;  
+        inputStream = &cin;  
+        continue;
+    }
         cerr << "DEBUG: "<< cmd << '\n';
         try {
             Player* curPlayer = board.getPlayer(board.getCurPlayer());
             if (cmd == "move") { // move a piece given the ID of the link and the direction
                 char linkID;
                 string dir;
-                cin >> linkID >> dir;
+                (*inputStream) >> linkID >> dir;
                 Link* curLink = curPlayer->getLinkById(linkID);
                 Point oldPos = curLink->getPoint();
                 if (curLink->getIsFrozen()) {
@@ -124,7 +125,7 @@ int main(int argc, const char* argv[]){
                     throw invalid_argument("Error: An ability has already been used this turn.");
                 }
                 int n;
-                cin >> n;
+                (*inputStream) >> n;
                 string abilityName = curPlayer->getAbility(n)->getName();
                 if (curPlayer->getId() == 0){
                     curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(1));
@@ -146,15 +147,15 @@ int main(int argc, const char* argv[]){
                 cerr << "DEBUG: seq" << endl;
                 fs.close();
                 fs.clear();
-                cin >> fileName;
+                (*inputStream) >> fileName;
                 fs.open(fileName);
                 if (!fs.is_open()) {
                     throw logic_error("Error: Unable to open file");
                 }
-                inputStream.rdbuf(fs.rdbuf()); // lets inputStream read from fstream
+                inputStream = new ifstream(fileName); 
             }
             else if (cmd == "quit") {       // exit game
-                return 0;
+                break;
             }
         } catch (exception &e){
             cerr << e.what() << '\n';
@@ -166,4 +167,8 @@ int main(int argc, const char* argv[]){
         }
         // free memory
     }
+    if (inputStream != &cin) {
+        delete inputStream;
+    }
+    // delete board;
 }

@@ -79,6 +79,5 @@ ostream& operator<<(ostream& out, const Cell& c) {
 }
 
 Cell::~Cell () {
-  if (link != nullptr)
-    delete link;
+
 }

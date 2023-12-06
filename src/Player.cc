@@ -182,6 +182,9 @@ vector<Ability*>::iterator Player::getAbilityEndIterator() {
 }
 
 void Player::makeMove(Link * l, Point dir) {
+    if (l->getIsDead()) {
+        throw logic_error("Error: Attempting to move a dead link");
+    }
     Point oldPos = l->getPoint();
     Point newPos = l->getNewPos(dir, up, right);
     cerr << "DEBUG: new pos obtained " << newPos << '\n';
@@ -266,21 +269,29 @@ int Player::getId(){
     return id;
 }
 
-Player::~Player()
-{
+Player::~Player() {
     for (auto i : abilities) {
-        if (i != nullptr)
+        if (i != nullptr) {
             delete i;
+            i = nullptr;
+        }
     }
+
     for (auto i : links) {
-        if (i != nullptr)
+        if (i != nullptr) {
             delete i;
+            i = nullptr;
+        }
     }
+
     for (auto i : downloaded) {
-        if (i != nullptr)
+        if (i != nullptr) {
             delete i;
+            i = nullptr;
+        }
     }
 }
+
 
 vector<Link*>::iterator Player::getDownloadBeginIterator() {
     return downloaded.begin();
