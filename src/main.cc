@@ -132,6 +132,9 @@ while (true) {
                 }
                 int n;
                 (*inputStream) >> n;
+                if (n > 5) {
+                    throw invalid_argument("Error: "+to_string(n)+" is not a valid ID for an ability.");
+                } 
                 string abilityName = curPlayer->getAbility(n)->getName();
                 if (curPlayer->getId() == 0){
                     curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(1));
