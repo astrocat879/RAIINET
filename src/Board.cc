@@ -16,9 +16,11 @@ Board::~Board() {
   }
 }
 
-void Board::init(bool graphics) {
+void Board::init(int graphics) {
   td = new TextDisplay(boardSize);
-  if (graphics) { 
+  graphicsMode = graphics;
+  if (graphics == 1) gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
+  if (graphics == 2) { 
     gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
     gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
   }
@@ -125,6 +127,9 @@ void Board::switchTurns() {
   curPlayer = (curPlayer+1)%playerCnt;
   usedAbility = false;
   td->changePlayer(curPlayer);
+  if (graphicsMode == 1) {
+    gd[0]->changePlayer(curPlayer);
+  }
 }
 
 void Board::addFirewall(Point p, Player* player) {

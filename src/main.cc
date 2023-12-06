@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <sstream>
 #include "Board.h"
 #include "Player.h"
 #include "Point.h"
@@ -26,8 +25,11 @@ int main(int argc, const char* argv[]){
         string arg = argv[i];
         allArgs += arg + " ";
     }
+
+    // read cmd args
     istringstream iss{allArgs};
-    bool link1, link2, ability1, ability2, graphics = false;
+    bool link1, link2, ability1, ability2 = false;
+    int graphics = 0;
     while (iss >> cmd) {
         if (cmd == "-ability1") {
             string abilityList;
@@ -56,7 +58,9 @@ int main(int argc, const char* argv[]){
             board.initPlayer(board.getPlayer(2), layout);
             link2 = true;
         } else if (cmd == "-graphics") {
-            graphics = true;
+            graphics = 1;
+        } else if (cmd == "-graphicsBonus") {
+            graphics = 2;
         }
     }
     cout << "DEBUG: Processed Arguments" << '\n';

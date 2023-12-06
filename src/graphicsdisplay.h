@@ -33,6 +33,7 @@ class GraphicsDisplay: public Observer {
   void printVirusDownloaded(int playerID);
   void printNumOfAbilities(int playerID);
   void printLinkInPlayerList(int playerID, int index);
+  void drawCoordinates();
  public:
   GraphicsDisplay(int n, Xwindow * w, int curPlayer);
 
