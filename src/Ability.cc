@@ -23,7 +23,6 @@ void Ability::flipUsed() {
 }
 
 void Ability::displayAbility() {
-    // cerr << "DEBUG: display ability\n";
     string padding = "";
     for (int i=0; i<2 - (name.length()/9); i++) {
         padding += "\t";

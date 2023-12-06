@@ -12,7 +12,6 @@ void Exchange::setLinks(Link *l1, Link *l2, Board *b) {
     link1 = l1;
     link2 = l2;
     board = b;
-    cout << "DEBUG: Params initialized" << endl;
 }
 
 void Exchange::useAbility() {

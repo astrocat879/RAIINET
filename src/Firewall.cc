@@ -29,7 +29,6 @@ void Firewall::attachLink(Link *l) {
 }
 
 void Firewall::notifyObservers() {
-  cerr << "DEBUG: entered Firewll.notifyObservers\n";
   for (Observer *o: observers) {
     o->notify(*this);
   }

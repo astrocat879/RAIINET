@@ -84,7 +84,6 @@ void GraphicsDisplay::changePlayer(int nextPlayer) {
   curPlayer = nextPlayer;
   printPlayerHeaders();
   drawCoordinates();
-  cerr << "DEBUG: changePlayer: " << curPlayer;
   // reprint board
   for (int i=0; i<gridSize; i++) {
     for (int j=0; j<gridSize; j++) {
@@ -138,7 +137,6 @@ void GraphicsDisplay::displayCellonBoard(char type, int x, int y) {
 
 void GraphicsDisplay::displayLinkOnBoard(int playerID, char id, char type, bool isRevealed, int x, int y) {
 if (playerID == curPlayer) {
-    cerr << "DEBUG: link player id: " << playerID << " curPlayerID: " << curPlayer << endl;
     if (type == 'V'){
       theDisplay->drawRectangle(x, y, cellPx, cellPx, 5, Xwindow::Red);
     } else {
@@ -163,7 +161,6 @@ if (playerID == curPlayer) {
 void GraphicsDisplay::notify(Cell &c) {
   int x = c.getX();
   int y = c.getY();
-  cerr << "DEBUG: GraphicsDisplay.notify() x: " << x << ", y: " << y << endl;
   if (curPlayer == 0) y = gridSize-1-y;
   else if (curPlayer == 1) x = gridSize-1-x;
   y *= cellPx;
@@ -171,19 +168,15 @@ void GraphicsDisplay::notify(Cell &c) {
   x += 20;
 
   Link * link = c.getLink();
-  cerr << "DEBUG: GraphicsDisplay.notify() x: " << x << ", y: " << y << endl;
   if (link == nullptr || link->getIsDead()) {
-    cerr << "DEBUG: type of cell: " << c.getType() << endl;
     cellIDs[c.getY()][c.getX()] = c.getType();
   } else {
-    cerr << "DEBUG: " << *link << endl;
     cellIDs[c.getY()][c.getX()] = link->getId();
     cellLinkTypes[c.getY()][c.getX()] = link->getType();
     cellLinkIsRevealed[c.getY()][c.getX()] = link->getReveal();
   }
 
   string s;
-  cerr << "DEBUG: after calculating x: " << x << ", y: " << y << endl;
   if (link == nullptr || link->getIsDead()) {
     displayCellonBoard(c.getType(), x, y);
   } else {
@@ -241,7 +234,6 @@ void GraphicsDisplay::printLinkInPlayerList(int playerID, int index) {
 }
 
 void GraphicsDisplay::notify(Player &p) {
-  cerr << "DEBUG: graphicsDisplay.notify's player: " << p.getId() << endl;
   
   // printing amount of links downloaded
   if (numLinksDownloaded[p.getId()] != p.getDownloadCount()){
@@ -263,7 +255,6 @@ void GraphicsDisplay::notify(Player &p) {
 
   // printing links
   for (auto l = p.getLinkBeginIterator(); l != p.getLinkEndIterator(); ++l) {
-    cerr << "DEBUG: player notify cur link: " << *(*l) << endl;
     stringstream ss;
     ss << *(*l);
 

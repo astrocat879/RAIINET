@@ -613,7 +613,6 @@ void Xwindow::drawChar(int x, int y, char c, int sz, int colour) {
     for (int i=0; i<5;i++) {
       for (int j=0;j<5;j++) {
         if (letters[c][i][j] == '1'){
-          // cerr << "DEBUG: hello???" << '\n';
           fillRectangle(x+j*cellSz, y+i*cellSz, cellSz, cellSz, colour);
         }
       }

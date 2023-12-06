@@ -18,7 +18,6 @@ void FirewallAbility::setCell(int y, int x, Board *b) {
 }
 
 void FirewallAbility::useAbility() {
-    cerr << "DEBUG: entered FirewallAbility.useAbility()\n";
     if (used) { // ability has already been used
         throw invalid_argument{"Error: Ability Firewall has already been used."};
     }

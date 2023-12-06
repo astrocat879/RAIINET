@@ -56,25 +56,19 @@ void Player::init(string layout){
 }
 
 void Player::init(){
-    cout << "DEBUG: start player default init" << '\n';
     vector<string> layout = {"V1", "V2", "V3", "V4", "D1", "D2", "D3", "D4"};
     random_shuffle(layout.begin(), layout.end());
-    cout << "DEBUG: shuffled" << '\n';
     for (int i=0; i<8; i++) {
         string link;
         link = layout[i];
         // handle error checking on link (TO DO)
         char type = link[0];
         int strength = link[1] - '0';
-        cout << "DEBUG: got link " << link << '\n';
         // calculate coordinate of link
-        cerr << "DEBUG: botLeft, right " << botLeft << ' ' << right << '\n';
         Point tmp = botLeft + right * i;
-        cout << "DEBUG: " << tmp.y << ", "<< tmp.x << '\n';
         if (i == 3 || i == 4) {
             tmp = tmp + up;
         }
-        cout << "DEBUG: make new link" << '\n';
         Link * newLink = new Link(linkIDs[i], tmp, up, right, type, strength, this);
         // Board.notify(newLink); <- notify the board that the link exists? (TO DO)
         links.push_back(newLink);
@@ -114,40 +108,39 @@ void Player::initAbility(string abilityList) {
     }
 }
 
-void Player::initAbilityParams(int id, char c, Player *other) {
+void Player::initAbilityParams(int id, char c, Player *other, istream & input) {
     if (c == 'R') {
         int a;
-        cin >> a;
+        input >> a;
         Recycle* r = dynamic_cast<Recycle*>(abilities[id - 1]);
         r->setAbility(abilities[a - 1]);
     } else if (c == 'F') {
         int y, x;
-        cin >> y >> x;
+        input >> y >> x;
         FirewallAbility* f = dynamic_cast<FirewallAbility*>(abilities[id - 1]);
         f->setCell(y, x, board);
     } else if (c == 'E'){
         char a, b;
-        cin >> a >> b;
+        input >> a >> b;
         Link *link1 = getLinkById(a), *link2 = getLinkById(b);
-        cout << "DEBUG: LINKS GOTTEN" << endl;
         Exchange* e = dynamic_cast<Exchange*>(abilities[id - 1]);
         e->setLinks(link1, link2, board);
     } else if (c == 'P') {
         char linkID;
-        cin >> linkID;
+        input >> linkID;
         Link *curLink = getLinkById(linkID);
         Polarize* e = dynamic_cast<Polarize*>(abilities[id - 1]);
         e->setLink(curLink);
     } else if (c == 'L') {
         char linkID;
-        cin >> linkID;
+        input >> linkID;
         Link *curLink = getLinkById(linkID);
         LinkBoost* e = dynamic_cast<LinkBoost*>(abilities[id - 1]);
         e->setLink(curLink);
     }
     else {
         char linkID;
-        cin >> linkID;
+        input >> linkID;
         Link* curLink = other->getLinkById(linkID);
         if (c == 'D') {
             Download* e = dynamic_cast<Download*>(abilities[id - 1]);
@@ -173,7 +166,6 @@ vector<Link*>::iterator Player::getLinkEndIterator() {
 }
 
 vector<Ability*>::iterator Player::getAbilityBeginIterator() {
-    cout << "DEBUG: ability vector size: " << abilities.size() << endl;
     return abilities.begin();
 }
 
@@ -187,7 +179,6 @@ void Player::makeMove(Link * l, Point dir) {
     }
     Point oldPos = l->getPoint();
     Point newPos = l->getNewPos(dir, up, right);
-    cerr << "DEBUG: new pos obtained " << newPos << '\n';
     if (newPos.outOfBounds(up, right, botLeft)) { //if out of bounds, throw an exception
         throw std::logic_error("Error: Target position (" + std::to_string(newPos.y) + "," + std::to_string(newPos.x) + ") is out of bounds");
     }
@@ -211,8 +202,6 @@ void Player::makeMove(Link * l, Point dir) {
 //             - board calls download link on that Link
 //         - board handles battle between link
 void Player::downloadLink(Link * l) {
-    cerr << "DEBUG: download link\n";
-    cerr << "DEBUG: " << l->getType() << '\n';
     if (l->getType() == 'V') {
         virusCount ++;
     } else if (l->getType() == 'D') {
@@ -220,22 +209,20 @@ void Player::downloadLink(Link * l) {
     }
     downloaded.push_back(l);
     // l->getPlayer()->removeLink(l);
-    cerr << "DEBUG: set dead\n"; 
     l->setDead();
     notifyObservers();
-    cerr << "DEBUG: Finished downloading link\n";
 }
 
 void Player::removeLink(Link * l) {
-    cerr << "DEBUG: Removing link\n"; 
     l->setDead();
     notifyObservers();
-    cerr << "DEBUG: Finished removing link\n";
 }
 
 void Player::useAbility(int abilityId) {
     abilities[abilityId - 1]->useAbility();
-    --abilityCount;
+    if (!(abilities[abilityId - 1]->getName() == "Recycle")) {
+        --abilityCount;
+    }
     notifyObservers();
 }
 

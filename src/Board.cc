@@ -42,9 +42,7 @@ void Board::init(int graphics) {
     gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 0));
     gd.push_back(new GraphicsDisplay(boardSize, new Xwindow{}, 1));
   }
-  cerr << "DEBUG: Board.init() reached" << endl;
   for (Player* p : players) {
-    cerr << "DEBUG: Board.init() player " << to_string(p->getId()) << endl;
     p->addObserver(td);
     for (auto gg : gd) {
       p->addObserver(gg);
@@ -91,7 +89,6 @@ void Board::init(int graphics) {
 
   delete theBoard[7][4];
   theBoard[7][4] = new ServerPort(7, 4, players[1]);
-  cout << "DEBUG: VERY IMPORTANT " << theBoard[7][4]->getType() << '\n';
   theBoard[7][4]->addObserver(td);
   for (auto gg : gd) {
     theBoard[7][4]->addObserver(gg);
@@ -190,7 +187,6 @@ int Board::isWon() {
 
 //   NOTE: that when downloading a link, you need to remove it from the other player with Player.removeLink(Link* l)
 //   */
-//   cerr << "DEBUG: " << newP << " MOVE link\n";
 //   theBoard[newP.y][newP.x]->attachLink(l);
 //   theBoard[oldP.y][oldP.x]->detachLink();
 // }

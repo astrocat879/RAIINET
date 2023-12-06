@@ -36,29 +36,22 @@ void TextDisplay::notify(Cell &c) {
   int x = c.getX();
   int y = c.getY();
   Link * link = c.getLink();
-  cerr << "DEBUG: TextDisplay.notify() x: " << x << ", y: " << y << endl;
   if (link == nullptr || link->getIsDead()) {
-    cerr << "DEBUG: type of cell: " << c.getType() << endl;
     theDisplay[y][x] = c.getType();
   } else {
-    cerr << "DEBUG: " << *link << endl;
     theDisplay[y][x] = link->getId();
   }
 }
 
 void TextDisplay::notify(Player &p) {
-  cerr << "DEBUG: textDisplay.notify's player: " << p.getId() << endl;
   numLinksDownloaded[p.getId()] = p.getDownloadCount();
   numVirusesDownloaded[p.getId()] = p.getVirusCount();
   numOfAbilities[p.getId()] = p.getAbilityCount();
   int index = 0;
   for (auto l = p.getLinkBeginIterator(); l != p.getLinkEndIterator(); ++l) {
-    cerr << "DEBUG: player notify cur link: " << *(*l) << endl;
     stringstream ss;
     ss << *(*l);
     links[p.getId()][index] = ss.str();
-    if ((*(*l)).getReveal()) cerr << "DEBUG: player notify cur link is revealed: true";
-    else cerr << "DEBUG: player notify cur link is revealed: false";
     isLinkRevealed[p.getId()][index] = (*(*l)).getReveal();
     ++index;
   }

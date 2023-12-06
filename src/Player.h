@@ -47,7 +47,7 @@ public:
     int getId();
     int getAbilityCount() const;
     void initAbility(string abilityList = "LFDSP"); // initializes abilities for player
-    void initAbilityParams(int id, char c, Player *other);
+    void initAbilityParams(int id, char c, Player *other, istream &input);
     void useAbility(int abilityId);
     void addObserver(Observer * o); 
     void notifyObservers();

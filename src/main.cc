@@ -16,11 +16,8 @@ int main(int argc, const char* argv[]){
     Board board{};
     // Xwindow w{};
     // TO DO: pass in display window into player and board
-    cout << "DEBUG: Board made" << '\n';
     board.addPlayer(new Player{0, &board});
     board.addPlayer(new Player{1, &board});
-    cout << "DEBUG: Added players" << '\n';
-    cout << "DEBUG: Finished init" << '\n';
     // process cmd arguments
     string allArgs;
     for (int i=1;i<argc;i++){
@@ -50,7 +47,7 @@ int main(int argc, const char* argv[]){
             ifstream file{fileName};
             string layout;
             getline(file, layout);
-            board.initPlayer(board.getPlayer(1), layout);
+            board.initPlayer(board.getPlayer(0), layout);
             link1 = true;
         } else if (cmd == "-link2") {
             string fileName;
@@ -58,7 +55,7 @@ int main(int argc, const char* argv[]){
             ifstream file{fileName};
             string layout;
             getline(file, layout);
-            board.initPlayer(board.getPlayer(2), layout);
+            board.initPlayer(board.getPlayer(1), layout);
             link2 = true;
         } else if (cmd == "-graphics") {
             graphics = 1;
@@ -66,7 +63,6 @@ int main(int argc, const char* argv[]){
             graphics = 2;
         }
     }
-    cout << "DEBUG: Processed Arguments" << '\n';
     // set up default initializations for ability and link (TO DO)
     if (!link1) {
         board.initPlayer(board.getPlayer(0));
@@ -83,7 +79,6 @@ int main(int argc, const char* argv[]){
 
     board.init(graphics);
 
-    // cout << "DEBUG: Processed default arguemnts" << '\n';
 
 ifstream fs;
 istream* inputStream = &cin;  // Initialize to cin
@@ -98,7 +93,6 @@ while (true) {
         inputStream = &cin;  
         continue;
     }
-        cerr << "DEBUG: "<< cmd << '\n';
         try {
             Player* curPlayer = board.getPlayer(board.getCurPlayer());
             if (cmd == "move") { // move a piece given the ID of the link and the direction
@@ -130,16 +124,18 @@ while (true) {
                 if (board.getUsedAbility()) {
                     throw invalid_argument("Error: An ability has already been used this turn.");
                 }
+                string tmp;
                 int n;
-                (*inputStream) >> n;
+                (*inputStream) >> tmp;
+                n = stoi(tmp);
                 if (n > 5) {
                     throw invalid_argument("Error: "+to_string(n)+" is not a valid ID for an ability.");
                 } 
                 string abilityName = curPlayer->getAbility(n)->getName();
                 if (curPlayer->getId() == 0){
-                    curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(1));
+                    curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(1), (*inputStream));
                 } else {
-                    curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(0));
+                    curPlayer->initAbilityParams(n, abilityName[0], board.getPlayer(0), (*inputStream));
                 }
                 curPlayer->useAbility(n);
                 cout << "Player " << (curPlayer->getId() + 1) << " used ability ";
@@ -153,7 +149,6 @@ while (true) {
                 cout << board;
             }
             else if (cmd == "sequence") {   // execute sequence of cmds found in a file
-                cerr << "DEBUG: seq" << endl;
                 fs.close();
                 fs.clear();
                 (*inputStream) >> fileName;
