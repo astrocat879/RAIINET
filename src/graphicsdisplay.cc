@@ -286,5 +286,5 @@ void GraphicsDisplay::notify(Player &p) {
 }
 
 GraphicsDisplay::~GraphicsDisplay() {
-
+  if (theDisplay != nullptr) delete theDisplay;
 }

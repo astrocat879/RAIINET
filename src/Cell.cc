@@ -79,5 +79,5 @@ ostream& operator<<(ostream& out, const Cell& c) {
 }
 
 Cell::~Cell () {
-  delete link;
+
 }
